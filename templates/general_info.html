@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {%for k,v in gen_info%}
+      <div class="tag">{{k}}</div><div class="text">:{{v}}</div>
+    {%endfor%}
+{% endblock %}
