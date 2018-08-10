@@ -86,3 +86,20 @@ a.article-title:hover {
 .text {
   font-size: 20px;
   font-weight: 500;
+  }
+
+.form-wrapper {
+
+}
+.form-item{
+  float:left;
+  width: 100%;
+  margin-bottom: 40px;
+
+}
+.multiple-item {
+  float: left;
+  margin-right: 24px;
+}
+.label {}
+.field {}

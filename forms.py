@@ -17,4 +17,4 @@ class RuleForm(Form):
     interface = SelectField('Incoming interface', choices=[('lan', 'LAN'), ('wan', 'WAN')])
 
 
-    submit = SubmitField("Send")
+    submit = SubmitField("Check")

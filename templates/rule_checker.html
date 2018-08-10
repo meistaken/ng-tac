@@ -1,36 +1,50 @@
 {% extends "layout.html" %}
 
 {% block content %}
-      <form action = "http://127.0.0.1:5000/rule_checker">
+    <form action = "http://127.0.0.1:5000/rule_checker">
          <fieldset>
             <legend>Rule Checker</legend>
-            
-            <div style = font-size:20px; font-weight:bold; margin-right: 50px;>
 
-                <div>{{ form.src_addr.label }}</div><div>{{ form.dst_addr.label }}</div>
-               {{ form.src_addr }}  {{ form.dst_addr }}
-               <br><br>
+            <div class = "form-wrapper">
+
+              <div class = "form-item">
+
+                <div class = "multiple-item">
+                  <div class = "label">{{ form.src_addr.label }}</div>
+                  <div class = "field">{{ form.src_addr }}</div>
+                 </div>
+
+                <div class = "multiple-item">
+                  <div class = "label">{{ form.dst_addr.label }}</div>
+                  <div class = "field">{{ form.dst_addr }}</div>
+                </div>
+              </div>
+
+              <div class = "form-item">
+                  <div class = "label">{{ form.src_port.label }}</div>
+                  <div class = "field">{{ form.src_port }}</div>
+              </div>
+
+              <div class = "form-item">
+                  <div class = "label">{{ form.dst_port.label }}</div>
+                  <div class = "field">{{ form.dst_port }}</div>
+              </div>
 
 
-               {{ form.src_port.label }}<br>
-               {{ form.src_port }}
-               <br><br>
+              <div class = "form-item">
+                  <div class = "label">{{ form.interface.label}}</div>
+                  <div class = "field">{{form.interface}}</div>
+              </div>
 
-               {{ form.dst_port.label }}<br>
-               {{ form.dst_port }}
-               <br><br>
+             <div class = "form-item">
+                  <div class = "label">{{ form.protocol.label }}</div>
+                  <div class = "field">{{ form.protocol }}</div>
+              </div>
 
-               {{ form.interface.label}}<br>
-               {{form.interface}}
-               <br><br>
-
-               {{ form.protocol.label }}<br>
-               {{ form.protocol }}
-               <br><br>
-
-               {{ form.submit }}
-            </div>
-            
+             <div class="form-item">
+                 <div class="field">{{ form.submit }}</div>
+             </div>
          </fieldset>
       </form>
+
 {% endblock %}
