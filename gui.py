@@ -1,11 +1,14 @@
 import xml.etree.ElementTree as ET
 import ipaddress
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request
+from forms import RuleForm
+
 tree = ET.parse('config.xml')
 root = tree.getroot()
 
 
 app = Flask(__name__)
+app.secret_key = 'development key'
 
 @app.route("/")
 @app.route("/home")
@@ -69,6 +72,17 @@ def printinterfaceinfo():
         result = int_title + int_str
 
     return render_template('interfaces.html', result=result)
+
+
+
+@app.route('/rule_checker', methods = ['GET', 'POST'])
+def RuleCheck():
+    form = RuleForm()
+
+    if request.method == 'POST':
+        return "Success!"
+    elif request.method == 'GET':
+        return render_template('rule_checker.html', form=form)
 
 
 if __name__ == '__main__':
