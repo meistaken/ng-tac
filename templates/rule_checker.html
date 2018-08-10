@@ -1,50 +1,48 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
+<form action="http://127.0.0.1:5000/rule_checker">
+    <fieldset>
+        <legend>Rule Checker</legend>
 
-{% block content %}
-    <form action = "http://127.0.0.1:5000/rule_checker">
-         <fieldset>
-            <legend>Rule Checker</legend>
+        <div class="form-wrapper">
 
-            <div class = "form-wrapper">
-            
-              <div class = "form-item">
-              
-                <div class = "multiple-item">
-                  <div class = "label">{{ form.src_addr.label }}</div>
-                  <div class = "field">{{ form.src_addr }}</div>
-                 </div>
-                 
-                <div class = "multiple-item">
-                  <div class = "label">{{ form.dst_addr.label }}</div>
-                  <div class = "field">{{ form.dst_addr }}</div>
+            <div class="form-item">
+
+                <div class="multiple-item">
+                    <div class="label">{{ form.src_addr.label }}</div>
+                    <div class="field">{{ form.src_addr }}</div>
                 </div>
-              </div>
-              
-              <div class = "form-item">
-                  <div class = "label">{{ form.src_port.label }}</div>
-                  <div class = "field">{{ form.src_port }}</div>
-              </div>
 
-              <div class = "form-item">
-                  <div class = "label">{{ form.dst_port.label }}</div>
-                  <div class = "field">{{ form.dst_port }}</div>
-              </div>
+                <div class="multiple-item">
+                    <div class="label">{{ form.dst_addr.label }}</div>
+                    <div class="field">{{ form.dst_addr }}</div>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <div class="label">{{ form.src_port.label }}</div>
+                <div class="field">{{ form.src_port }}</div>
+            </div>
+
+            <div class="form-item">
+                <div class="label">{{ form.dst_port.label }}</div>
+                <div class="field">{{ form.dst_port }}</div>
+            </div>
 
 
-              <div class = "form-item">
-                  <div class = "label">{{ form.interface.label}}</div>
-                  <div class = "field">{{form.interface}}</div>
-              </div>
+            <div class="form-item">
+                <div class="label">{{ form.interface.label}}</div>
+                <div class="field">{{form.interface}}</div>
+            </div>
 
-             <div class = "form-item">
-                  <div class = "label">{{ form.protocol.label }}</div>
-                  <div class = "field">{{ form.protocol }}</div>
-              </div>
+            <div class="form-item">
+                <div class="label">{{ form.protocol.label }}</div>
+                <div class="field">{{ form.protocol }}</div>
+            </div>
 
-             <div class = "form-item">
-                 <div class = "field">{{ form.submit }}</div>
-           </div>
-         </fieldset>
-      </form>
-      
+            <div class="form-item">
+                <div class="field">{{ form.submit }}</div>
+            </div>
+    </fieldset>
+</form>
+
 {% endblock %}
