@@ -1,8 +1,8 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 
 
-class RuleForm(Form):
+class RuleForm(FlaskForm):
 
 
     src_addr = StringField("Source Address")
