@@ -1,29 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<style>
-        .form-wrapper {
-
-}
-        .form-item{
-          float:left;
-          width: 100%;
-          margin-bottom: 40px;
-        
-        }
-        .multiple-item {
-          float: left;
-          margin-right: 24px;
-        }
-        .label {}
-        .field {}
- </style>  
- 
     <form action = "http://127.0.0.1:5000/rule_checker">
          <fieldset>
             <legend>Rule Checker</legend>
 
-            <div class = "form-wrapper"> //
+            <div class = "form-wrapper">
             
               <div class = "form-item">
               
@@ -58,8 +40,9 @@
                   <div class = "label">{{ form.protocol.label }}</div>
                   <div class = "field">{{ form.protocol }}</div>
               </div>
-              
-           {{ form.submit }}    
+
+             <div class = "form-item">
+                 <div class = "field">{{ form.submit }}</div>
            </div>
          </fieldset>
       </form>
