@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
-
 {% block content %}
-    {%for k,v in gen_info%}
-      <div class="tag">{{k}}</div><div class="text">:{{v}}</div>
-    {%endfor%}
+    <h1 class= "mb-4">General information</h1>
+        {%for k,v in gen_info%}
+        <div class="card" style="margin-bottom: 8px;">
+            <div class="card-body">
+                <label style="margin-bottom:0.05em;">{{k}}</label>
+                <div class="text">{{v}}</div>
+            </div>
+        </div>
+{%endfor%}
 {% endblock %}
+
