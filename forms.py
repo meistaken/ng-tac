@@ -9,7 +9,7 @@ class RuleForm(FlaskForm):
     src_port = StringField("Port")
     dst_port = StringField("Port")
 
-    protocol = SelectField('Protocol', choices=[('any', 'any'), ('tcp', 'TCP'), ('udp', 'UDP')])
+    ipprotocol = SelectField('Protocol', choices=[('any', 'any'), ('tcp', 'TCP'), ('udp', 'UDP'), ('inet', 'INET')])
 
     interface = SelectField('Incoming interface', choices=[('lan', 'LAN'), ('wan', 'WAN')])
 

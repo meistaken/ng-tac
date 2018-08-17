@@ -1,5 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1 class= "mb-4">Interface information</h1> <!-- сделай норм формат выдачи плиз, по типу general information -->
+<h1 class= "mb-4">Interface information</h1>
 {{ result }}
+    {% for k, v in result %}
+
+        <div class="text">{{k.upper()}}</div>
+        {% for x, y in v.items() %}
+            {% if y == "WARNING: Interface disabled" %}
+            <div class="text">{{x}}:</div><div class="tag_red">{{y}}</div>
+            {% else %}
+            <div class="text">{{x}}:</div><div class="tag">{{y}}</div>
+            {% endif %}
+        {%endfor%}
+    {%endfor%}
 {% endblock content %}

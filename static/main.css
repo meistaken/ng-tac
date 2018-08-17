@@ -78,7 +78,18 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+.tag {
+  float: left;
+  font-size: 20px;
+  color: green;
+        }
 
+.tag_red {
+  float: left;
+  font-size: 20px;
+  color: red;
+        }
+        
 .text {
   font-family: 'Roboto Mono', monospace;
   font-size: 20px;
