@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block content %}
-<form action="http://127.0.0.1:5000/rule_checker">
+<form action="http://127.0.0.1:5000/rule_checker" method="post">
     <fieldset>
         <legend>Rule Checker</legend>
 
@@ -8,25 +8,25 @@
             <div class="form-item">
 
                 <div class="multiple-item">
-                    <div class="label">{{ form.src_addr.label }}</div>
-                    <div class="field">{{ form.src_addr }}</div>
+                    <div class="label">{{ form.source.label }}</div>
+                    <div class="field">{{ form.source }}</div>
                 </div>
 
                 <div class="multiple-item">
-                    <div class="label">{{ form.dst_addr.label }}</div>
-                    <div class="field">{{ form.dst_addr }}</div>
+                    <div class="label">{{ form.destination.label }}</div>
+                    <div class="field">{{ form.destination }}</div>
                 </div>
             </div>
 
-            <div class="form-item">
-                <div class="label">{{ form.src_port.label }}</div>
-                <div class="field">{{ form.src_port }}</div>
-            </div>
+            <!--<div class="form-item">-->
+                <!--<div class="label">{{ form.src_port.label }}</div>-->
+                <!--<div class="field">{{ form.src_port }}</div>-->
+            <!--</div>-->
 
-            <div class="form-item">
-                <div class="label">{{ form.dst_port.label }}</div>
-                <div class="field">{{ form.dst_port }}</div>
-            </div>
+            <!--<div class="form-item">-->
+                <!--<div class="label">{{ form.dst_port.label }}</div>-->
+                <!--<div class="field">{{ form.dst_port }}</div>-->
+            <!--</div>-->
 
 
             <div class="form-item">
@@ -35,8 +35,8 @@
             </div>
 
             <div class="form-item">
-                <div class="label">{{ form.protocol.label }}</div>
-                <div class="field">{{ form.protocol }}</div>
+                <div class="label">{{ form.ipprotocol.label }}</div>
+                <div class="field">{{ form.ipprotocol }}</div>
             </div>
 
             <div class="form-item">

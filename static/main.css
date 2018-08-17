@@ -83,6 +83,11 @@ a.article-title:hover {
   font-size: 20px;
   color: green;
         }
+.tag_red {
+  float: left;
+  font-size: 20px;
+  color: red;
+        }
 .text {
   font-size: 20px;
   font-weight: 500;
