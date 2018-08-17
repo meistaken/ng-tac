@@ -240,3 +240,6 @@ pip-selfcheck.json
 
 
 # End of https://www.gitignore.io/api/macos,linux,python,pycharm
+
+### Add pycache
+__pycache__/
