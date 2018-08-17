@@ -39,7 +39,7 @@ def printsysinfo():
 
 @app.route('/interfaces')
 def printinterfaceinfo():
-    result = {}''
+    result = {}
     for interface in root.iterfind('./interfaces/'):
         result[interface.tag] = {}
         pref = ''
