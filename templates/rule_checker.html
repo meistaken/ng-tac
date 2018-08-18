@@ -1,48 +1,32 @@
 {% extends "layout.html" %} {% block content %}
-<form action="http://127.0.0.1:5000/rule_checker" method="post">
-    <fieldset>
-        <legend>Rule Checker</legend>
-
-        <div class="form-wrapper">
-
-            <div class="form-item">
-
-                <div class="multiple-item">
-                    <div class="label">{{ form.source.label }}</div>
-                    <div class="field">{{ form.source }}</div>
-                </div>
-
-                <div class="multiple-item">
-                    <div class="label">{{ form.destination.label }}</div>
-                    <div class="field">{{ form.destination }}</div>
-                </div>
-            </div>
-
-            <!--<div class="form-item">-->
-                <!--<div class="label">{{ form.src_port.label }}</div>-->
-                <!--<div class="field">{{ form.src_port }}</div>-->
-            <!--</div>-->
-
-            <!--<div class="form-item">-->
-                <!--<div class="label">{{ form.dst_port.label }}</div>-->
-                <!--<div class="field">{{ form.dst_port }}</div>-->
-            <!--</div>-->
-
-
-            <div class="form-item">
-                <div class="label">{{ form.interface.label}}</div>
-                <div class="field">{{form.interface}}</div>
-            </div>
-
-            <div class="form-item">
-                <div class="label">{{ form.ipprotocol.label }}</div>
-                <div class="field">{{ form.ipprotocol }}</div>
-            </div>
-
-            <div class="form-item">
-                <div class="field">{{ form.submit }}</div>
-            </div>
-    </fieldset>
+<h1 class="mb-4">Rule Checker</h1>
+<form action="http://127.0.0.1:5000/rule_checker">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ form.source.label }}{{ form.source (class="form-control form-control-lg")}}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form.src_port.label }}{{ form.src_port (class="form-control form-control-lg")}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ form.destination.label }}{{ form.destination (class="form-control form-control-lg")}}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form.dst_port.label }}{{ form.dst_port (class="form-control form-control-lg")}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ form.interface.label}}{{form.interface (class="form-control form-control-lg")}}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ form.ipprotocol.label }}{{ form.ipprotocol (class="form-control form-control-lg")}}
+        </div>
+    </div>
+    <input class="btn btn-primary btn-lg col-md-2" type="submit" value="check">
 </form>
-
-{% endblock %}
+{% endblock content %}
