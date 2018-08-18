@@ -1,16 +1,22 @@
-{% extends "layout.html" %}
-{% block content %}
-<h1 class= "mb-4">Interface information</h1>
-{{ result }}
-    {% for k, v in result %}
-
-        <div class="text">{{k.upper()}}</div>
-        {% for x, y in v.items() %}
-            {% if y == "WARNING: Interface disabled" %}
-            <div class="text">{{x}}:</div><div class="tag_red">{{y}}</div>
-            {% else %}
-            <div class="text">{{x}}:</div><div class="tag">{{y}}</div>
-            {% endif %}
+{% extends "layout.html" %}{% block content %}
+<h1 class="mb-4">Interface information</h1>
+{% for k, v in result %}
+<div class="card mb-4">
+    <h5 class="card-header" style="text-transform: uppercase;">{{k}}</h5>
+    <div class="card-body">
+        {% for x, y in v.items() %} {% if y == "Interface disabled " %}
+        <div class="mb-3">
+            <label style="margin-bottom:0.05em;">{{x}}</label>
+            <div class="text">{{y}}</div>
+        </div>
+        {% else %}
+        <div class="mb-3">
+            <label style="margin-bottom:0.05em;">{{x}}</label>
+            <div class="text">{{y}}</div>
+        </div>
+        {% endif %} 
         {%endfor%}
-    {%endfor%}
+    </div>
+</div>
+{%endfor%} 
 {% endblock content %}
