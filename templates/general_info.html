@@ -1,9 +1,10 @@
 {% extends "layout.html" %} {% block content %}
-<h1 class="mb-4">General information</h1>
-<div class="card mb-2">
+<h1 class="mb-4">Information</h1>
+<div class="card mb-4">
     <div class="card-body">
+        <h4 style="text-transform: uppercase; margin: 0;">General info</h5>
     {%for k,v in gen_info%}
-        <div class="mb-3">
+        <div class="mt-3">
             <label style="margin-bottom:0.05em;">{{k}}</label>
         <div class="text">{{v}}</div>
     </div>
