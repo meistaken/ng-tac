@@ -10,4 +10,25 @@
     {%endfor%} 
     </div>
 </div>
-{% endblock %}
+
+{% for k, v in result %}
+    <div class="card mb-4 ">
+        <div class="card-body">
+            {% for x, y in v.items() %}
+                {% if y == "disabled" %}
+                <h4 style="text-transform: uppercase; margin: 0;">{{k}}<span class="badge badge-pill badge-danger" style="vertical-align:3px;">{{y}}</span></h5>
+
+                {% elif y == "enabled" %}
+                <h4 style="text-transform: uppercase; margin: 0;">{{k}}<span class="badge badge-pill badge-success" style="vertical-align:3px;">{{y}}</span></h5>
+
+                {% else %}
+                <div class="mt-3">
+                    <label style="margin-bottom:0.05em;">{{x}}</label>
+                    <div class="text">{{y}}</div>
+                </div>
+                {% endif %}
+            {%endfor%}
+        </div>
+    </div>
+{%endfor%}
+{% endblock content %}

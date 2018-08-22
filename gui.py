@@ -31,11 +31,42 @@ def printsysinfo():
                 sys_info[sys_data.tag] = [sys_data.text]
             else:
                 sys_info[sys_data.tag].append(sys_data.text)
+    result = {}
+    for interface in root.iterfind('./interfaces/'):
+        result[interface.tag] = {}
+        pref = ''
+        net = ""
+        enab = False
+        for int_config in interface.iterfind('./'):
+            if int_config.tag == 'enable':
+                enab = True
+            if int_config.tag == 'ipaddr':
+                net = int_config.text
+                if net == '' and pref == '':
+                    result[interface.tag][int_config.tag] = 'IP address not specified'
+                elif net == 'dhcp':
+                    result[interface.tag][int_config.tag] = 'IP address provided by DHCP'
+                else:
+                    result[interface.tag][int_config.tag] = net
+            if int_config.tag == 'subnet':
+                pref = int_config.text
+                result[interface.tag][int_config.tag] = pref
+            if enab:
+                result[interface.tag]['status'] = 'enabled'
+            else:
+                result[interface.tag]['status'] = 'disabled'
+            if net != '' and pref != '':
+                full_add = net + '/' + pref
+                sub = ipaddress.IPv4Interface(full_add)
+                result[interface.tag]['subnet'] = sub.network.network_address
+                result[interface.tag]['broadcast'] = sub.network.broadcast_address
+
+
 
     # for k, v in sys_info.items():
     #     formated_str += k.upper()
     #     formated_str += ': ' + str(v) + '\n'
-    return render_template('general_info.html', gen_info=sys_info.items())
+    return render_template('general_info.html', gen_info=sys_info.items(), result=result.items())
 
 @app.route('/interfaces')
 def printinterfaceinfo():
