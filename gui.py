@@ -1,24 +1,30 @@
 import xml.etree.ElementTree as ET
 import ipaddress
 from flask import Flask, render_template, request
-from forms import RuleForm
+from forms import RuleForm, UploadForm
+from werkzeug.utils import secure_filename
+import os
 
 tree = ET.parse('config.xml')
 root = tree.getroot()
 
+folder = '/home/denis/ng_tac_helper'
+extesion = {'xml'}
 
 app = Flask(__name__)
 app.secret_key = 'development key'
+app.config['folder'] = folder
+
 
 @app.route("/")
 @app.route("/home")
 def home():
-   return render_template('home.html')
+    return render_template('home.html')
+
 
 @app.route('/general_info')
 def printsysinfo():
     sys_info = {}
-    formated_str = ''
     for sys_data in root.iterfind('./system/'):
         if sys_data.tag == 'hostname':
             sys_info[sys_data.tag] = sys_data.text
@@ -32,10 +38,8 @@ def printsysinfo():
             else:
                 sys_info[sys_data.tag].append(sys_data.text)
 
-    # for k, v in sys_info.items():
-    #     formated_str += k.upper()
-    #     formated_str += ': ' + str(v) + '\n'
     return render_template('general_info.html', gen_info=sys_info.items())
+
 
 @app.route('/interfaces')
 def printinterfaceinfo():
@@ -67,7 +71,7 @@ def printinterfaceinfo():
                 full_add = net + '/' + pref
                 sub = ipaddress.IPv4Interface(full_add)
                 result[interface.tag]['subnet'] = sub.network.network_address
-                result[interface.tag]['broadcast'] =  sub.network.broadcast_address
+                result[interface.tag]['broadcast'] = sub.network.broadcast_address
 
     return render_template('interfaces.html', result=result.items())
 
@@ -124,6 +128,26 @@ def RuleCheck():
     elif request.method == 'GET':
         return render_template('rule_checker.html', form=form)
 
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in extesion
+
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload_file():
+    form = UploadForm()
+    if request.method == 'POST':
+        file = request.files['file']
+        if not allowed_file(file.filename):
+            message = 'That type of file not permited'
+            return render_template('upload.html', form=form, msg=message)
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['folder'], filename))
+            message = 'File uploaded'
+            return render_template('upload.html', form=form, msg=message)
+
+    return render_template('upload.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)

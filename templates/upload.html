@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+
+    {{msg}}
+
+    {{ form.hidden_tag() }}
+    {{ form.file }}
+    <input type="submit" value="Upload">
+
+{% endblock content %}
