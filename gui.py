@@ -60,9 +60,9 @@ def printinterfaceinfo():
                 pref = int_config.text
                 result[interface.tag][int_config.tag] = pref
             if enab:
-                result[interface.tag]['status'] = 'Interface enabled'
+                result[interface.tag]['status'] = 'enabled'
             else:
-                result[interface.tag]['status'] = 'Interface disabled'
+                result[interface.tag]['status'] = 'disabled'
             if net != '' and pref != '':
                 full_add = net + '/' + pref
                 sub = ipaddress.IPv4Interface(full_add)
