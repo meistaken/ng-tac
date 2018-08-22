@@ -6,24 +6,22 @@
 
             {% if y == "disabled" %}
         <div class="card mb-4">
-            <h5 class="card-header" style="text-transform: uppercase;">{{k}}</h5><span class="badge badge-danger">{{y}}</span></h5>
+            <h5 class="card-header" style="text-transform: uppercase;">{{k}} <span class="badge badge-danger">{{y}}</span></h5>
             <div class="card-body">
                 <div class="mb-3">
 
-        </div>
             {% elif y == "enabled" %}
 
-                <div class="card mb-4">
-            <h5 class="card-header" style="text-transform: uppercase;">{{k}}</h5><span class="badge badge-danger">{{y}}</span></h5>
+        <div class="card mb-4">
+            <h5 class="card-header" style="text-transform: uppercase;">{{k}} <span class="badge badge-success">{{y}}</span></h5>
             <div class="card-body">
                 <div class="mb-3">
 
-                </div>
              {% else %}
         <div class="mb-3">
             <label style="margin-bottom:0.05em;">{{x}}</label>
             <div class="text">{{y}}</div>
-        </div>
+
             {% endif %}
         {%endfor%}
     </div>
