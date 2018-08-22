@@ -86,7 +86,14 @@ a.article-title:hover {
 
 .text {
   font-family: 'Roboto Mono', monospace;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #444;
+}
+
+.badge {
+  margin: 0 0 0 16px; 
+  text-transform: none; 
+  font-weight: 500; 
+  font-size: 0.9rem;
 }
