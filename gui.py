@@ -3,6 +3,7 @@ import ipaddress
 from flask import Flask, render_template, request
 from forms import RuleForm, UploadForm
 from werkzeug.utils import secure_filename
+from flask_assets import Bundle, Environment
 import os
 
 tree = ET.parse('config.xml')
@@ -15,6 +16,9 @@ app = Flask(__name__)
 app.secret_key = 'development key'
 app.config['folder'] = folder
 
+assets=Environment(app)
+css = Bundle('scss/custom.scss', filters='scss', output='bootstrap.css')
+assets.register('css_all', css)
 
 @app.route("/")
 @app.route("/home")

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}{% block content %}
 <h1 class="mb-4">Interface information</h1>
 {% for k, v in result %}
-    <div class="card mb-4 ">
+    <div class="shadow p-3 mb-4 rounded ">
         <div class="card-body">
             {% for x, y in v.items() %}
                 {% if y == "disabled" %}
