@@ -17,7 +17,7 @@ app.secret_key = 'development key'
 app.config['folder'] = folder
 
 assets=Environment(app)
-css = Bundle('scss/custom.scss', filters='libsass', output='bootstrap.css')
+css = Bundle('scss/custom.scss', filters='libsass', output='styles.css')
 assets.register('css_all', css)
 
 @app.route("/")
