@@ -2,10 +2,10 @@
 <h1 class="mb-4">General information</h1>
 <div class="card mb-2">
     <div class="card-body">
-    {%for k,v in gen_info%}
+    {%for info_param,info_data in gen_info%}
         <div class="mb-3">
-            <label style="margin-bottom:0.05em;">{{k}}</label>
-        <div class="text">{{v}}</div>
+            <label style="margin-bottom:0.05em;">{{info_param}}</label>
+        <div class="text">{{info_data}}</div>
     </div>
     {%endfor%} 
     </div>

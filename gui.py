@@ -47,9 +47,9 @@ def printsysinfo():
 
 @app.route('/interfaces')
 def printinterfaceinfo():
-    result = {}
+    int_dict = {}
     for interface in root.iterfind('./interfaces/'):
-        result[interface.tag] = {}
+        int_dict[interface.tag] = {}
         pref = ''
         net = ""
         enab = False
@@ -59,25 +59,25 @@ def printinterfaceinfo():
             if int_config.tag == 'ipaddr':
                 net = int_config.text
                 if net == '' and pref == '':
-                    result[interface.tag][int_config.tag] = 'IP address not specified'
+                    int_dict[interface.tag][int_config.tag] = 'IP address not specified'
                 elif net == 'dhcp':
-                    result[interface.tag][int_config.tag] = 'IP address provided by DHCP'
+                    int_dict[interface.tag][int_config.tag] = 'IP address provided by DHCP'
                 else:
-                    result[interface.tag][int_config.tag] = net
+                    int_dict[interface.tag][int_config.tag] = net
             if int_config.tag == 'subnet':
                 pref = int_config.text
-                result[interface.tag][int_config.tag] = pref
+                int_dict[interface.tag][int_config.tag] = pref
             if enab:
-                result[interface.tag]['status'] = 'enabled'
+                int_dict[interface.tag]['status'] = 'enabled'
             else:
-                result[interface.tag]['status'] = 'disabled'
+                int_dict[interface.tag]['status'] = 'disabled'
             if net != '' and pref != '':
                 full_add = net + '/' + pref
                 sub = ipaddress.IPv4Interface(full_add)
-                result[interface.tag]['subnet'] = sub.network.network_address
-                result[interface.tag]['broadcast'] = sub.network.broadcast_address
+                int_dict[interface.tag]['subnet'] = sub.network.network_address
+                int_dict[interface.tag]['broadcast'] = sub.network.broadcast_address
 
-    return render_template('interfaces.html', result=result.items())
+    return render_template('interfaces.html', int_dict=int_dict)
 
 
 
