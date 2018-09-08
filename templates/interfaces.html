@@ -11,12 +11,33 @@
                 <h4 style="text-transform: uppercase; margin: 0;">{{int_name}}<span class="badge badge-pill badge-success" style="vertical-align:3px;">{{value}}</span></h4>
 
                 {% else %}
+
                 <div class="mt-3">
                     <label style="margin-bottom:0.05em;">{{key}}</label>
                     <div class="text">{{value}}</div>
                 </div>
                 {% endif %}
             {%endfor%}
+            <div class="mt-3">
+                <div class="text">VIP Interfaces Information</div>
+            </div>
+            {% for vip_int, vip_dict in vip.items() %}
+                    {% if vip_int ==  int_name %}
+                        {% for ID, vip_data in vip_dict.items() %}
+                            <div class="mt-3">
+                                <label style="margin-bottom:0.05em;">Unique Identificator</label>
+                                <div class="text">{{ID}}</div>
+                            </div>
+                            {% for vip_key, vip_value in vip_data.items() %}
+
+                                <div class="mt-3">
+                                    <label style="margin-bottom:0.05em;">{{vip_key}}</label>
+                                    <div class="text">{{vip_value}}</div>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+            {% endfor %}
         </div>
     </div>
 {%endfor%}

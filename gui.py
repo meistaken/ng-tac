@@ -47,7 +47,26 @@ def printsysinfo():
 
 @app.route('/interfaces')
 def printinterfaceinfo():
+    other_data = {}
+    vip_dict = {}
     int_dict = {}
+
+    for vip_data in root.iterfind('./virtualip/'):
+        for vip_inf in vip_data.iterfind('.//'):
+            if vip_inf.tag == 'interface':
+                int_name = vip_inf.text
+            elif vip_inf.tag == 'uniqid':
+                int_id = vip_inf.text
+            else:
+                other_data[vip_inf.tag] = vip_inf.text
+        if int_name not in vip_dict.keys():
+            vip_dict[int_name] = {}
+            vip_dict[int_name][int_id] = {}
+            vip_dict[int_name][int_id].update(other_data)
+        elif int_name in vip_dict.keys():
+            vip_dict[int_name][int_id] = {}
+            vip_dict[int_name][int_id].update(other_data)
+
     for interface in root.iterfind('./interfaces/'):
         int_dict[interface.tag] = {}
         pref = ''
@@ -77,7 +96,8 @@ def printinterfaceinfo():
                 int_dict[interface.tag]['subnet'] = sub.network.network_address
                 int_dict[interface.tag]['broadcast'] = sub.network.broadcast_address
 
-    return render_template('interfaces.html', int_dict=int_dict)
+
+    return render_template('interfaces.html', int_dict=int_dict, vip=vip_dict)
 
 
 
