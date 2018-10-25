@@ -42,6 +42,9 @@ def printsysinfo():
             else:
                 sys_info[sys_data.tag].append(sys_data.text)
 
+
+
+
     return render_template('general_info.html', gen_info=sys_info.items())
 
 
