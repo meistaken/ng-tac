@@ -18,6 +18,7 @@
                 </div>
                 {% endif %}
             {%endfor%}
+            {% if int_name in vip %}
             <div class="mt-3">
                 <div class="text">VIP Interfaces Information</div>
             </div>
@@ -48,6 +49,7 @@
                                 {% endif %}  
                                 {% endfor %}     
                 </table>
+            {% endif  %}
         </div>
     </div>
 {%endfor%}
