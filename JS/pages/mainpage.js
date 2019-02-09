@@ -1,19 +1,51 @@
 'use strict';
 
-import GeneralInfo from './components/general-info.js'
 import Nav from './components/sidebar.js'
 
-export default class General {
+import GeneralInfo from './components/general-info.js'
+import InterfaceInfo from './components/interface-info.js'
+import RuleChecker from './components/rule-checker.js'
+
+
+export default class MainPage {
     constructor({ element }) {
         this._element = element;
+
         this._render();
 
-        this._nav = new Nav({
-            element: this._element.querySelector('[data-component="nav"]'),
-        })
         this._generalData = new GeneralInfo({
             element: this._element.querySelector('[data-component="general-info"]'),
+            pageSelected: (pageSelected) => {
+                this._element.hide();
+                this._element.querySelector('[data-component="${ pageSelected }"]').show();
+            },
         })
+
+        this._interfaceInfo = new InterfaceInfo({
+            element: this._element.querySelector('[data-component="interface-info"]'),
+            pageSelected: (pageSelected) => {
+                this._element.hide();
+                this._element.querySelector('[data-component="${ pageSelected }"]').show();
+            },
+        })
+
+        this._ruleChecker = new RuleChecker({
+            element: this._element.querySelector('[data-component="rule-checker"]'),
+            pageSelected: (pageSelected) => {
+                this._element.hide();
+                this._element.querySelector('[data-component="${ pageSelected }"]').show();
+            },
+        })
+        this._navigation = new Nav ({
+            element: this._element.querySelector('[data-component="nav"]')
+        })
+        
+    }
+    hide() {
+        this._element.hidden = true;
+    }
+    show() {
+        this._element.hidden = false;
     }
 
     _render() {
@@ -27,10 +59,11 @@ export default class General {
         
             <!-- Page Content -->
             <div id="content">
-
-            <div class="card-body">
-                <h1>General information</h1>
-                <div data-component="general-info"></div>
+                <div class="card-body">
+                    <div data-component="general-info" ></div>
+                    <div data-component="interface-info" ></div>
+                    <div data-component="rule-checker" ></div>
+                </div>
             </div>
 
         </div>

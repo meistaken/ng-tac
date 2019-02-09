@@ -1,8 +1,10 @@
 'use strict';
 
 export default class Nav {
-    constructor({ element }) {
+    constructor({ element, pageSelected }) {
         this._element = element;
+        this._pageSelected = pageSelected;
+
         this._render();
 
         this._element.addEventListener('click', (event) => {
@@ -10,9 +12,10 @@ export default class Nav {
           if (!pageLink) {
             return;
           }
-
           const pageElement = pageLink.closest('[data-element="page"]')
-          console.log('page selected', pageElement)
+
+          //this._pageSelected(pageElement.dataset.pageId);
+          console.log(pageElement.dataset.pageId);
         });
     }
 
@@ -24,21 +27,21 @@ export default class Nav {
 
           <li class="nav-item"
           data-element="page"
-          data-page-id="general"
+          data-page-id="general-info"
           >
             <a class="nav-link active" href="#" data-element="page-link">General info</a>
           </li>
 
           <li class="nav-item"
           data-element="page"
-          data-page-id="interface"
+          data-page-id="interface-info"
           >
             <a class="nav-link" href="#" data-element="page-link">Interface info</a>
           </li>
 
           <li class="nav-item"
           data-element="page"
-          data-page-id="rule-cheker"
+          data-page-id="rule-checker"
           >
             <a class="nav-link" href="#" data-element="page-link">Rule checker</a>
           </li>

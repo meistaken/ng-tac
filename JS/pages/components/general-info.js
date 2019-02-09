@@ -8,7 +8,7 @@ export default class GeneralInfo {
 
     _render() {
         this._element.innerHTML = `
-        <p>info from general info js</p>
+        <h1>General information</h1>
         <div class="mb-3">
             <label>{{info_param}}</label>
         <div class="text">{{info_data}}</div>
