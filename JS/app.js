@@ -1,7 +1,7 @@
 'use strict';
 
-import General from './pages/mainpage.js';
+import MainPage from './pages/mainpage.js';
 
-let currentPage = new General({
+let currentPage = new MainPage({
     element: document.querySelector('[data-page-container]'),
 });
