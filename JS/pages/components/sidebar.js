@@ -14,8 +14,8 @@ export default class Nav {
           }
           const pageElement = pageLink.closest('[data-element="page"]')
 
-          //this._pageSelected(pageElement.dataset.pageId);
           console.log(pageElement.dataset.pageId);
+          this._pageSelected(pageElement.dataset.pageId);
         });
     }
 

@@ -1,5 +1,6 @@
 'use strict';
 
+import Component from './component.js';
 import Nav from './components/sidebar.js'
 
 import GeneralInfo from './components/general-info.js'
@@ -7,8 +8,10 @@ import InterfaceInfo from './components/interface-info.js'
 import RuleChecker from './components/rule-checker.js'
 
 
-export default class MainPage {
+
+export default class MainPage extends Component {
     constructor({ element }) {
+        super ({element});
         this._element = element;
 
         this._render();
