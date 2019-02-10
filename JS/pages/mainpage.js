@@ -5,39 +5,48 @@ import GeneralInfo from './components/general-info.js'
 import InterfaceInfo from './components/interface-info.js'
 import RuleChecker from './components/rule-checker.js'
 
-
-
 export default class MainPage {
-    constructor({ element }) {
+    constructor({
+        element
+    }) {
         this._element = element;
 
         this._render();
 
-        this._navigation = new Nav ({
+        this._navigation = new Nav({
             element: this._element.querySelector('[data-component="nav"]')
         })
 
         this._navigation.subscribe('page-selected', (pageId) => {
-            let pageSelected = this._element.getAttribute(pageId);
+            const pageSelected = this._element.querySelector(pageId);
 
-            this._navigation.hide();
-            this._navigation.show(pageSelected)
-        })
+            let pageItem = this._element.querySelectorAll(".page"),
+                i = 0,
+                l = pageItem.length;
+            for (i; i < l; i++) {
+                pageItem[i].hidden = true;
+            }
+
+            pageSelected.hidden = false;
+
+
+        });
+
 
         this._generalData = new GeneralInfo({
-            element: this._element.querySelector('[data-component="general-info"]'),
+            element: this._element.querySelector('#general-info'),
         });
-        
+
         this._interfaceInfo = new InterfaceInfo({
-            element: this._element.querySelector('[data-component="interface-info"]'),
+            element: this._element.querySelector('#interface-info'),
         })
 
+
         this._ruleChecker = new RuleChecker({
-            element: this._element.querySelector('[data-component="rule-checker"]'),
+            element: this._element.querySelector('#rule-checker'),
         })
- 
-        
-        
+
+
     }
 
     _render() {
@@ -53,14 +62,24 @@ export default class MainPage {
             <div id="content">
                 <div class="card-body">
                     <div 
-                    data-element="page"
-                    data-component="general-info" ></div>
+                    id = "general-info"
+                    class = "page"
+                    data-element="page"                   
+                     ></div>
+
                     <div
+                    id = "interface-info"
+                    class = "page"
                     data-element="page" 
-                    data-component="interface-info" ></div>
+                    hidden
+                    ></div>
+
                     <div 
+                    id = "rule-checker"
+                    class = "page"
                     data-element="page"
-                    data-component="rule-checker" ></div>
+                    hidden
+                    ></div>
                 </div>
             </div>
 

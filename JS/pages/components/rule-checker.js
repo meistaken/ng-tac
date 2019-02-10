@@ -1,7 +1,9 @@
 'use strict';
 
 export default class RuleChecker {
-    constructor({ element }) {
+    constructor({
+        element
+    }) {
         this._element = element;
         this._render()
     }

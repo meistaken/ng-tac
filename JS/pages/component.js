@@ -1,42 +1,44 @@
 export default class Component {
-    
-    constructor({ element }) {
-        this._element = element;
-        this._callbackMap = {};
-      }
-    
-      on(eventName, elementName, callback) {
-        this._element.addEventListener(eventName, (event) => {
-          const delegateTarget = event.target.closest(`[data-element="${ elementName }"]`);
-    
-          if (!delegateTarget) {
-            return;
-          }
-    
-          callback(event);
-        });
+
+  constructor({
+    element
+  }) {
+    this._element = element;
+    this._callbackMap = {};
+  }
+
+  on(eventName, elementName, callback) {
+    this._element.addEventListener(eventName, (event) => {
+      const delegateTarget = event.target.closest(`[data-element="${ elementName }"]`);
+
+      if (!delegateTarget) {
+        return;
       }
 
-    subscribe(eventName, callback) {
-        let eventCallbacks = this._element[eventName] || [];
+      callback(event);
+    });
+  }
 
-        eventCallbacks.push(callback);
+  subscribe(eventName, callback) {
+    let eventCallbacks = this._element[eventName] || [];
 
-        this._callbackMap[eventName] = eventCallbacks;
-    }
+    eventCallbacks.push(callback);
 
-    emit(eventName, data) {
-        let eventCallbacks = this._callbackMap[eventName] || [];
+    this._callbackMap[eventName] = eventCallbacks;
+  }
 
-        eventCallbacks.forEach(callback => {
-            callback(data);
-        });
-    }
+  emit(eventName, data) {
+    let eventCallbacks = this._callbackMap[eventName] || [];
 
-    hide() {
-        this._element.hidden = true;
-    }
-    show() {
-        this._element.hidden = false;
-    }
+    eventCallbacks.forEach(callback => {
+      callback(data);
+    });
+  }
+
+  hide() {
+    this._element.hidden = true;
+  }
+  show() {
+    this._element.hidden = false;
+  }
 }

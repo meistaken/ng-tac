@@ -1,7 +1,9 @@
 'use strict';
 
 export default class InterfaceInfo {
-    constructor({ element }) {
+    constructor({
+        element
+    }) {
         this._element = element;
         this._render()
     }

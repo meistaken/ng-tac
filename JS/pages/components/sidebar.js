@@ -6,7 +6,7 @@ export default class Nav extends Component{
 
         this._render();
         this.on('click', 'page-link', (event) => {
-          const pageId = event.target.closest('[data-element="page"]').getAttribute("data-page-id");
+          const pageId = "#" + event.target.closest('[data-element="page"]').getAttribute("data-page-id");
 
           this.emit('page-selected', pageId);
         });
