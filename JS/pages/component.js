@@ -1,8 +1,21 @@
 export default class Component {
-    constructor({element}) {
+    
+    constructor({ element }) {
         this._element = element;
         this._callbackMap = {};
-    }
+      }
+    
+      on(eventName, elementName, callback) {
+        this._element.addEventListener(eventName, (event) => {
+          const delegateTarget = event.target.closest(`[data-element="${ elementName }"]`);
+    
+          if (!delegateTarget) {
+            return;
+          }
+    
+          callback(event);
+        });
+      }
 
     subscribe(eventName, callback) {
         let eventCallbacks = this._element[eventName] || [];

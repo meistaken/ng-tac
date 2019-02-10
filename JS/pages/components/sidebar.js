@@ -1,21 +1,14 @@
-'use strict';
+import Component from '../../pages/component.js';
 
-export default class Nav {
-    constructor({ element, pageSelected }) {
-        this._element = element;
-        this._pageSelected = pageSelected;
+export default class Nav extends Component{
+    constructor({ element }) {
+        super({ element });
 
         this._render();
+        this.on('click', 'page-link', (event) => {
+          const pageId = event.target.closest('[data-element="page"]').getAttribute("data-page-id");
 
-        this._element.addEventListener('click', (event) => {
-          const pageLink = event.target.closest('[data-element="page-link"]');
-          if (!pageLink) {
-            return;
-          }
-          const pageElement = pageLink.closest('[data-element="page"]')
-
-          console.log(pageElement.dataset.pageId);
-          this._pageSelected(pageElement.dataset.pageId);
+          this.emit('page-selected', pageId);
         });
     }
 

@@ -1,6 +1,4 @@
 'use strict';
-
-import Component from './component.js';
 import Nav from './components/sidebar.js'
 
 import GeneralInfo from './components/general-info.js'
@@ -9,46 +7,37 @@ import RuleChecker from './components/rule-checker.js'
 
 
 
-export default class MainPage extends Component {
+export default class MainPage {
     constructor({ element }) {
-        super ({element});
         this._element = element;
 
         this._render();
 
-        this._generalData = new GeneralInfo({
-            element: this._element.querySelector('[data-component="general-info"]'),
-            pageSelected: (pageSelected) => {
-                this._element.hide();
-                this._element.querySelector('[data-component="${ pageSelected }"]').show();
-            },
+        this._navigation = new Nav ({
+            element: this._element.querySelector('[data-component="nav"]')
         })
 
+        this._navigation.subscribe('page-selected', (pageId) => {
+            let pageSelected = this._element.getAttribute(pageId);
+
+            this._navigation.hide();
+            this._navigation.show(pageSelected)
+        })
+
+        this._generalData = new GeneralInfo({
+            element: this._element.querySelector('[data-component="general-info"]'),
+        });
+        
         this._interfaceInfo = new InterfaceInfo({
             element: this._element.querySelector('[data-component="interface-info"]'),
-            pageSelected: (pageSelected) => {
-                this._element.hide();
-                this._element.querySelector('[data-component="${ pageSelected }"]').show();
-            },
         })
 
         this._ruleChecker = new RuleChecker({
             element: this._element.querySelector('[data-component="rule-checker"]'),
-            pageSelected: (pageSelected) => {
-                this._element.hide();
-                this._element.querySelector('[data-component="${ pageSelected }"]').show();
-            },
         })
-        this._navigation = new Nav ({
-            element: this._element.querySelector('[data-component="nav"]')
-        })
+ 
         
-    }
-    hide() {
-        this._element.hidden = true;
-    }
-    show() {
-        this._element.hidden = false;
+        
     }
 
     _render() {
@@ -63,9 +52,15 @@ export default class MainPage extends Component {
             <!-- Page Content -->
             <div id="content">
                 <div class="card-body">
-                    <div data-component="general-info" ></div>
-                    <div data-component="interface-info" ></div>
-                    <div data-component="rule-checker" ></div>
+                    <div 
+                    data-element="page"
+                    data-component="general-info" ></div>
+                    <div
+                    data-element="page" 
+                    data-component="interface-info" ></div>
+                    <div 
+                    data-element="page"
+                    data-component="rule-checker" ></div>
                 </div>
             </div>
 
