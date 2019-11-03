@@ -1,18 +1,16 @@
-'use strict';
-import Nav from './components/sidebar.js'
+import Nav from './components/sidebar'
 
-import GeneralInfo from './components/general-info.js'
-import InterfaceInfo from './components/interface-info.js'
-import RuleChecker from './components/rule-checker.js'
+import GeneralInfo from './components/generalInfo'
+import InterfaceInfo from './components/interface-info'
+import RuleChecker from './components/rule-checker'
+import { elements } from './views/base'
 
 export default class MainPage {
     constructor({
         element
     }) {
         this._element = element;
-
         this._render();
-
         this._navigation = new Nav({
             element: this._element.querySelector('[data-component="nav"]')
         })
@@ -28,8 +26,6 @@ export default class MainPage {
             }
 
             pageSelected.hidden = false;
-
-
         });
 
 
