@@ -4,12 +4,15 @@ export const clearButton = () => {
     elements.startButtonLocation.parentNode.removeChild(elements.startButtonLocation);
 }
 
-export const renderMarkup = info => {
+export const renderMarkup = () => {
+ 
  const markup = `
  <div class="wrapper">
 
     <nav id="sidebar">
+
         <div data-component="nav">
+        
                 <div class="card-body">
                 <h4>Support assistant</h4>
                 <ul class="nav flex-column">
@@ -39,11 +42,14 @@ export const renderMarkup = info => {
     </nav>
 
     <div id="content">
-        <div class="card-body">   
-        ${JSON.stringify(info.system)}
-        </div>
+
     </div>
 </div>
  `;
  elements.pageMarkup.insertAdjacentHTML('beforeend', markup);
 }
+
+export const clearContent = () => {
+    document.getElementById('content').innerHTML = '';
+}
+

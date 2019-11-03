@@ -1,9 +1,9 @@
-import Info from './models/Info';
+import { elements } from './views/base';
+
+import Info from './models/Data';
 import * as mainView from './views/mainView';
 import * as infoView from './views/infoView';
 import * as ruleView from './views/ruleView';
-
-import { elements } from './views/base';
 
 /** Global state
  * - StartApp (later Upload JSON page )
@@ -14,23 +14,25 @@ import { elements } from './views/base';
 
 const state = {};
 
-
 const generatePage = async() => {
 
-    // 1) Get data from JSON
+    // Get data from JSON
     state.info = new Info();
-
-    // 3) Prepare UI
+ 
+    // Prepare UI
     mainView.clearButton();
 
-    // 4) Info from UI
+    // Info from UI
     await state.info.getResults();
 
-    // 5) Render UI
-    mainView.renderMarkup(state.info.results);
+    // Render template
+    mainView.renderMarkup();
 
     //Start eventListning
     navEvent();
+
+    // Render information content 
+    infoView.renderInfo(state.info);
 
     //TEMP
     console.log(state.info.results);
@@ -43,9 +45,7 @@ elements.startButton.addEventListener('click', e => {
 });
 
 
-
-
-// Nav eventListeners
+// Add eventListeners for navigation
 const navEvent = () => {
     document.querySelector('.nav').addEventListener('click', e => {
         e.preventDefault();
@@ -53,9 +53,11 @@ const navEvent = () => {
      });
 }
 
+//Switch screens
 const pagecontroller = (el) => {
+
     // Prepare UI
-    clearContent();
+    mainView.clearContent();
 
     //Show page
     if(el == 'info') {
@@ -70,6 +72,3 @@ const pagecontroller = (el) => {
 
 };
 
-const clearContent = () => {
-    document.getElementById('content').innerHTML = '';
-}

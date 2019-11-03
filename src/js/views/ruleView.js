@@ -1,6 +1,6 @@
 import { elements } from './base';
 
-export const renderRule = info => {
+export const renderRule = () => {
     const markup = `
         <div class="card-body">
            rulechecker
