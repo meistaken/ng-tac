@@ -4,6 +4,8 @@ import Info from './models/Data';
 import * as mainView from './views/mainView';
 import * as infoView from './views/infoView';
 import * as ruleView from './views/ruleView';
+import { finished } from 'stream';
+import { hostname } from 'os';
 
 /** Global state
  * - StartApp (later Upload JSON page )
@@ -34,8 +36,6 @@ const generatePage = async() => {
     // Render information content 
     infoView.renderInfo(state.info);
 
-    //TEMP
-    console.log(state.info.results);
 }
 
 //Generate main layout after load JSON
@@ -61,7 +61,7 @@ const pagecontroller = (el) => {
 
     //Show page
     if(el == 'info') {
-        infoView.renderInfo();
+        infoView.renderInfo(state.info);
     }
     else if (el == 'rule') {
         ruleView.renderRule();

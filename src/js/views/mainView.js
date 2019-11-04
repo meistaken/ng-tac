@@ -14,7 +14,7 @@ export const renderMarkup = () => {
         <div data-component="nav">
         
                 <div class="card-body">
-                <h4>Support assistant</h4>
+                <h5>Support assistant</h5>
                 <ul class="nav flex-column">
 
                     <li class="nav-item"
