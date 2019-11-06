@@ -1,47 +1,87 @@
-import {
-    elements
-} from './base';
+import {elements} from './base';
 
-export const renderInfo = info => {
+// Создание готового массива данных путем фильтрации JSON
+const generalInfo = info => {
 
-    const interfaces = info.results.interfaces;
-    const system = info.results.system;
+    // Набор ключей для вывода
+    const keys = ['hostname', 'domain', 'timezone', 'dnsserver'];
 
-    const sysKey = ['hostname', 'domain', 'timezone', 'dnsserver']
-  
-    // Get properties from arr in system obj
-    sysKey.forEach(function(el) {
-        console.log(`${el} ${getProperty(system, el)}`);
-      });
+    // Преобразование объекта в массив для использования filter
+    const res = Object.entries(info.system);
 
-    // Get prop from obj
-    function getProperty(obj, key) {
-        if (key in obj)
-            return obj[key];
-
-        return "Cвойство отсутствует";
-    }
-
-    //  Get all keys from obj
-    function getAll(obj) {
-        for (const prop in obj) {
-            console.log(`${prop} = ${JSON.stringify(obj[(prop)])}`);
+    let arr = res.filter(el => {
+        for (let i = 0; i < keys.length; i++) {
+            if (el[0].indexOf(keys[i]) != -1) {
+                return true;
+            }
         }
-    }
+        return false;
+    });
+    return arr;
+}
 
-    const markup = `
-        <div class="card-body">
-           <h2>General info</h2>
-           ${sysKey[0]}<p>${getProperty(system, sysKey[0])}</p>
-           ${sysKey[1]}<p>${getProperty(system, sysKey[1])}</p>
-           ${sysKey[2]}<p>${getProperty(system, sysKey[2])}</p>
-           ${sysKey[3]}<p>${getProperty(system, sysKey[3])}</p>
 
-           <h2>Interfaces</h2>
-           <p>${JSON.stringify(getProperty(interfaces))}</p>
+const interFaceInfo = info => {
+    const res = Object.entries(info.interfaces);
 
-           ${getAll(interfaces)}
+    let arr = res.filter(el => {
+        for (let i = 0; i < res.length; i++) {
+            if (el[0] != -1) {
+                return true;
+            }
+        }
+        return false;
+    });
+    return arr;
+}
+
+
+const renderInfoBlock = info => {
+    let result = generalInfo(info);
+    result.forEach(print);
+
+    function print(result) {
+        const markup = `
+        <div class="results__data">
+                 <h4 class="results__name">${result[0]}</h4>
+                 <p class="results__value">${result[1]}</p>
         </div>
+        `;
+        document.getElementById('gen-info').insertAdjacentHTML('beforeend', markup);
+    }
+}
+
+
+const renderInterBlock = info => {
+    let result = interFaceInfo(info);
+    result.forEach(print);
+
+    function print(result) {
+        const markup = `
+            <div class="results__data">
+                     <h4 class="results__name">${result[0]}</h4>
+                     <p class="results__value">${JSON.stringify(result[1])}</p>
+            </div>
+            `;
+        document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
+    }
+}
+
+
+export const renderInfoTemplate = () => {
+    const markup = `
+    <div class="card-body" id="gen-info">
+        <h2>General info</h2>
+    </div>
+    <div class="card-body" id="inf-info">
+        <h2>Interface info</h2>
+    </div>
     `;
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
+}
+
+
+export const renderInfo = info => {
+    renderInfoBlock(info)
+    renderInterBlock(info)
 }

@@ -28,13 +28,14 @@ const generatePage = async() => {
     await state.info.getResults();
 
     // Render template
-    mainView.renderMarkup();
+    mainView.renderBaseTemplate();
+    infoView.renderInfoTemplate();
 
     //Start eventListning
     navEvent();
 
     // Render information content 
-    infoView.renderInfo(state.info);
+    infoView.renderInfo(state.info.results);
 
 }
 
@@ -61,7 +62,8 @@ const pagecontroller = (el) => {
 
     //Show page
     if(el == 'info') {
-        infoView.renderInfo(state.info);
+        infoView.renderInfoTemplate();
+        infoView.renderInfo(state.info.results);
     }
     else if (el == 'rule') {
         ruleView.renderRule();

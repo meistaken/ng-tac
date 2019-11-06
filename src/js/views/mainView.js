@@ -4,7 +4,7 @@ export const clearButton = () => {
     elements.startButtonLocation.parentNode.removeChild(elements.startButtonLocation);
 }
 
-export const renderMarkup = () => {
+export const renderBaseTemplate = () => {
  
  const markup = `
  <div class="wrapper">
