@@ -23,16 +23,7 @@ const generalInfo = info => {
 
 const interFaceInfo = info => {
     const res = Object.entries(info.interfaces);
-
-    let arr = res.filter(el => {
-        for (let i = 0; i < res.length; i++) {
-            if (el[0] != -1) {
-                return true;
-            }
-        }
-        return false;
-    });
-    return arr;
+    return res;
 }
 
 
@@ -57,15 +48,33 @@ const renderInterBlock = info => {
     result.forEach(print);
 
     function print(result) {
+        let hed = result[0];
+
         const markup = `
             <div class="results__data">
-                     <h4 class="results__name">${result[0]}</h4>
-                     <p class="results__value">${JSON.stringify(result[1])}</p>
+                <h4 class="results">${hed}</h4>
             </div>
             `;
         document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
     }
+
 }
+const renderInterBlockSub = info => {
+    let result = interFaceInfo(info);
+    result.forEach(print);
+    //
+
+    function print(result) {
+        let sub = Object.entries(result[1]);
+        const markup = `
+            <p class="results__value">${sub[0]}</p><p class="results__value">${sub[1]}</p>
+            ${console.log(sub)}
+        `;
+                document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
+    }
+    
+}
+
 
 
 export const renderInfoTemplate = () => {
@@ -84,4 +93,5 @@ export const renderInfoTemplate = () => {
 export const renderInfo = info => {
     renderInfoBlock(info)
     renderInterBlock(info)
+    renderInterBlockSub(info)
 }
