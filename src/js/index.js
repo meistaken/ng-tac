@@ -2,10 +2,8 @@ import { elements } from './views/base';
 
 import Info from './models/Data';
 import * as mainView from './views/mainView';
-import * as infoView from './views/infoView';
 import * as ruleView from './views/ruleView';
-import { finished } from 'stream';
-import { hostname } from 'os';
+
 
 /** Global state
  * - StartApp (later Upload JSON page )
@@ -27,15 +25,17 @@ const generatePage = async() => {
     // Info from UI
     await state.info.getResults();
 
-    // Render template
-    mainView.renderBaseTemplate();
-    infoView.renderInfoTemplate();
+    // Render main layout template
+    mainView.renderTemplate();
+
+    // Render start page template
+    mainView.renderInfoTemplate();
+
+    // Render information content 
+    mainView.renderInfo(state.info.results);
 
     //Start eventListning
     navEvent();
-
-    // Render information content 
-    infoView.renderInfo(state.info.results);
 
 }
 
@@ -55,17 +55,17 @@ const navEvent = () => {
 }
 
 //Switch screens
-const pagecontroller = (el) => {
+const pagecontroller = (page) => {
 
     // Prepare UI
     mainView.clearContent();
 
     //Show page
-    if(el == 'info') {
-        infoView.renderInfoTemplate();
-        infoView.renderInfo(state.info.results);
+    if(page == 'info') {
+        mainView.renderInfoTemplate();
+        mainView.renderInfo(state.info.results);
     }
-    else if (el == 'rule') {
+    else if (page == 'rule') {
         ruleView.renderRule();
     }
     else {
