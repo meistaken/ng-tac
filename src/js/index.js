@@ -4,8 +4,15 @@ import Info from './models/Data';
 import * as mainView from './views/mainView';
 import * as ruleView from './views/ruleView';
 
-
 const state = {};
+
+/** TODO List
+ * 
+ * 1. Search in global data object
+ * 2. Upload JSON config 
+ * 3. Upload XML config + convert to JSON
+ * 4. Render search result (1)
+ */
 
 const generatePage = async() => {
 
