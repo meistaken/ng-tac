@@ -5,13 +5,6 @@ import * as mainView from './views/mainView';
 import * as ruleView from './views/ruleView';
 
 
-/** Global state
- * - StartApp (later Upload JSON page )
- * - Current page
- * - Search rule
- * - Current rule
- */
-
 const state = {};
 
 const generatePage = async() => {
@@ -35,7 +28,7 @@ const generatePage = async() => {
     mainView.renderInfo(state.info.results);
 
     //Start eventListning
-    navEvent();
+    handleNav();
 
 }
 
@@ -47,11 +40,11 @@ elements.startButton.addEventListener('click', e => {
 
 
 // Add eventListeners for navigation
-const navEvent = () => {
+const handleNav = () => {
     document.querySelector('.nav').addEventListener('click', e => {
         e.preventDefault();
         pagecontroller(event.target.id);
-     });
+    });
 }
 
 //Switch screens
@@ -67,10 +60,9 @@ const pagecontroller = (page) => {
     }
     else if (page == 'rule') {
         ruleView.renderRule();
+        ruleView.handleFormSubmit();
     }
     else {
-        console.log('emptypage')
+        alert('under-constaction')
     }
-
 };
-

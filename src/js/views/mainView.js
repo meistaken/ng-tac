@@ -90,13 +90,10 @@ const renderInterface = info => {
 
         for (let [k, v] of Object.entries(value)) {
             if (v == false) {
-                // If need render empty keys
-                /*
                 const markup = `
-                    <li class="list-group-item">${k}: empty value</li>
+                    <li class="list-group-item">${k}</li>
                 `
                 document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
-                */
             } else if (v) {
                 const markup = `
                     <li class="list-group-item">${k} <span class="font-weight-bold">${v}</span></li>
