@@ -7,8 +7,8 @@ export const renderRule = () => {
 
             <label>Source Address</label>
             <input 
-            type="text" 
-            id="source-address"
+            type="text"
+            id="sourceAddress"
             class="form-control mb-3"   
             placeholder="Source address"  
             value=""                        
@@ -20,8 +20,8 @@ export const renderRule = () => {
 
                 <label>Source Port</label>
                 <input 
-                type="text" 
-                id="source-port"
+                type="text"
+                id="sourcePort"
                 class="form-control mb-3"   
                 placeholder="Source Port"
                 value=""   
@@ -36,7 +36,7 @@ export const renderRule = () => {
                 <input 
                 type="text"
                 class="form-control mb-3" 
-                id="destination-address" 
+                id="destinationAddress" 
                 placeholder="Destination address"
                 value=""   
                 >
@@ -45,9 +45,9 @@ export const renderRule = () => {
         <div class="col">
                 <label>Destination Port</label>
                 <input 
-                type="text" 
+                type="text"
                 class="form-control mb-3" 
-                id="destination-port" 
+                id="destinationPort" 
                 placeholder="Destination Port"
                 value=""   
                 >
@@ -70,7 +70,7 @@ export const renderRule = () => {
                 <label>Incoming interface</label>
                 <select 
                 class="form-control mb-3" 
-                id="incoming-interface">
+                id="incomingInterface">
                     <option>LAN</option>
                     <option>WAN</option>
                 </select>
@@ -82,7 +82,7 @@ export const renderRule = () => {
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
 
-export const handleFormSubmit = () => {
+export const handleFormSubmit = (json) => {
     const form = document.getElementById('check-rule');
 
     form.addEventListener('submit', e => {
@@ -90,6 +90,7 @@ export const handleFormSubmit = () => {
 
         const data = formToJSON(form.elements);
         console.log(data)
+        console.log(getObjects(json, '', data.destinationAddress))
     })
 }
 
@@ -107,3 +108,24 @@ const isValidElement = element => {
 }
 
 
+// Get objects
+const getObjects = (obj, key, val) => {
+    let objects = [];
+    for (let i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));    
+        } else 
+        
+        //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+        if (i == key && obj[i] == val || i == key && val == '') { //
+            objects.push(obj);
+        } else if (obj[i] == val && key == ''){
+            //only add if the object is not already in the array
+            if (objects.lastIndexOf(obj) == -1){
+                objects.push(obj);
+            }
+        }
+    }
+    return objects;
+}

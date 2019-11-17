@@ -67,7 +67,7 @@ const pagecontroller = (page) => {
     }
     else if (page == 'rule') {
         ruleView.renderRule();
-        ruleView.handleFormSubmit();
+        ruleView.handleFormSubmit(state.info.results);
     }
     else {
         alert('under-constaction')
