@@ -89,8 +89,12 @@ export const handleFormSubmit = (json) => {
         e.preventDefault();
 
         const data = formToJSON(form.elements);
-        console.log(data)
-        console.log(getObjects(json, '', data.destinationAddress))
+        const res = getObjects(json, '', data.destinationAddress);
+        
+        console.log(data);
+        console.log(res);
+
+        renderResults(res);
     })
 }
 
@@ -128,4 +132,14 @@ const getObjects = (obj, key, val) => {
         }
     }
     return objects;
+}
+
+//Render result
+const renderResults = (res) => {
+
+    const markup = `
+    <h3>Result</h3>
+    <p>${JSON.stringify(res)}</p>
+    `;
+    document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
