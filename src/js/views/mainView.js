@@ -40,9 +40,7 @@ export const renderTemplate = () => {
         </div>    
     </nav>
 
-    <div class="container col-lg-6 mt-3">
-        <div id="content"></div>
-    </div>
+    <div class="container col-mg-8 mt-3" id="content"></div>
  `;
     elements.pageMarkup.insertAdjacentHTML('beforeend', markup);
 }
@@ -51,16 +49,16 @@ export const renderTemplate = () => {
 // Render content page layout
 export const renderInfoTemplate = () => {
     const markup = `
-    <h2 class="mb-3">Information</h2>
+    <h2>Information</h2>
     <div class="row">
-        <div class="col-sm">
-            <h6 class="card-subtitle mb-2 text-muted">General info</h6>
-            <ul class="list-group"  id="gen-info"></ul>
+        <div class="col-md">
+            <h6 class="card-subtitle text-muted mt-2 mb-1">General info</h6>
+            <ul class="list-group mb-3" id="gen-info"></ul>
         </div>
 
-        <div class="col-sm">    
-            <h6 class="card-subtitle mb-2 text-muted">Interface info</h6>
-            <ul class="list-group" id="inf-info"></ul>                
+        <div class="col-md">    
+            <h6 class="card-subtitle text-muted mt-2 mb-1">Interface info</h6>
+            <ul class="list-group mb-3" id="inf-info"></ul>                
         </div> 
     </div>
    `;
@@ -91,7 +89,7 @@ const renderInterface = info => {
 
     for (let [key, value] of Object.entries(info.interfaces)) {
         const markup = `
-            <h5 class="mt-3">${key.toUpperCase()}</h5>
+            <h5 class="mt-2">${key.toUpperCase()}</h5>
         `;
         document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
 

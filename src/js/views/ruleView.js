@@ -1,9 +1,10 @@
 export const renderRule = () => {
     const markup = `
+    <div class="col-lg-6 m-auto">
     <h2>Rule Checker</h2>
     <form id="check-rule">
-    <div class="form-row mb-3">
-        <div class="col-8">
+    <div class="form-row">
+        <div class="col">
 
             <label>Source Address</label>
             <input 
@@ -16,46 +17,42 @@ export const renderRule = () => {
 
         </div>
 
-        <div class="col">
-
+        <div class="col-md-4">
                 <label>Source Port</label>
                 <input 
                 type="text"
                 id="sourcePort"
                 class="form-control mb-3"   
                 placeholder="Source Port"
-                value=""   
                 >
         </div>
 
         </div>
 
-        <div class="form-row mb-3">
-            <div class="col-8">
+        <div class="form-row">
+            <div class="col">
                 <label>Destination Address</label>
                 <input 
                 type="text"
                 class="form-control mb-3" 
                 id="destinationAddress" 
                 placeholder="Destination address"
-                value=""   
                 >
         </div>
 
-        <div class="col">
+        <div class="col-md-4">
                 <label>Destination Port</label>
                 <input 
                 type="text"
                 class="form-control mb-3" 
                 id="destinationPort" 
                 placeholder="Destination Port"
-                value=""   
                 >
         </div>
         </div>
 
-        <div class="form-row mb-3">
-            <div class="col-sm-4">
+        <div class="form-row">
+            <div class="col">
                 <label>Protocol</label>
                 <select 
                 class="form-control mb-3" 
@@ -66,7 +63,7 @@ export const renderRule = () => {
                 </select>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col">
                 <label>Incoming interface</label>
                 <select 
                 class="form-control mb-3" 
@@ -78,6 +75,7 @@ export const renderRule = () => {
         </div>
                 <input class="btn btn-primary btn col-md-3" type="submit" value="Check rule">
             </form>
+            </div>
     `;
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
@@ -98,10 +96,10 @@ export const handleFormSubmit = (json) => {
     })
 }
 
-const formToJSON = elements => [].reduce.call(elements, (data, element) => {
-
+// Get data from form
+const formToJSON = elements => Array.from(elements).reduce((data, element) => {
     if (isValidElement(element)) { 
-        // Add the current field to the object.
+        // Add the valid field to the object
         data[element.id] = element.value;
     }
     return data;
@@ -110,7 +108,6 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) => {
 const isValidElement = element => {
     return element.id && element.value;
 }
-
 
 // Get objects
 const getObjects = (obj, key, val) => {
