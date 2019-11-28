@@ -40,7 +40,7 @@ export const renderTemplate = () => {
         </div>    
     </nav>
 
-    <div class="container p-4">
+    <div class="container col-lg-6 mt-3">
         <div id="content"></div>
     </div>
  `;
@@ -53,12 +53,12 @@ export const renderInfoTemplate = () => {
     const markup = `
     <h2 class="mb-3">Information</h2>
     <div class="row">
-        <div class="col">
+        <div class="col-sm">
             <h6 class="card-subtitle mb-2 text-muted">General info</h6>
             <ul class="list-group"  id="gen-info"></ul>
         </div>
 
-        <div class="col">    
+        <div class="col-sm">    
             <h6 class="card-subtitle mb-2 text-muted">Interface info</h6>
             <ul class="list-group" id="inf-info"></ul>                
         </div> 

@@ -55,7 +55,7 @@ export const renderRule = () => {
         </div>
 
         <div class="form-row mb-3">
-            <div class="col-4">
+            <div class="col-sm-4">
                 <label>Protocol</label>
                 <select 
                 class="form-control mb-3" 
@@ -66,7 +66,7 @@ export const renderRule = () => {
                 </select>
         </div>
 
-        <div class="col-4">
+        <div class="col-sm-4">
                 <label>Incoming interface</label>
                 <select 
                 class="form-control mb-3" 
