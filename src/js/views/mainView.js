@@ -15,22 +15,29 @@ export const clearContent = () => {
 // Render layout
 export const renderTemplate = () => {
     const markup = `
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
         <a class="navbar-brand" href="#">Support assistant</a>  
 
-        <ul class="nav">
-            <li class="nav-item"
-            data-element="page" >
-                <a class="nav-link active" href="#" id="info">Information</a>
-            </li>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item"
-            data-element="page" >                    
-                <a class="nav-link" href="#" id="rule">Rule checker</a>
-            </li>
+                <li class="navbar-item"
+                data-element="page" >
+                    <a href="#" class="nav-link" id="info">Information</a>
+                </li>
 
-            <button class="btn btn-outline-primary" type="submit" id="new">Add new config</button>
-        </ul>
+                <li class="navbar-item"
+                data-element="page" >                    
+                    <a href="#" class="nav-link" id="rule">Rule checker</a>
+                </li>
+
+                <button class="btn btn-outline-primary" type="submit" id="new">Add new config</button>
+            </ul>
+        </div>    
     </nav>
 
     <div class="container p-4">
