@@ -48,7 +48,7 @@ elements.startButton.addEventListener('click', e => {
 
 // Add eventListeners for navigation
 const handleNav = () => {
-    document.querySelector('.nav').addEventListener('click', e => {
+    document.querySelector('.navbar-nav').addEventListener('click', e => {
         e.preventDefault();
         pagecontroller(event.target.id);
     });
