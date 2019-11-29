@@ -67,7 +67,7 @@ export const renderRule = () => {
                 <label>Incoming interface</label>
                 <select 
                 class="form-control mb-3" 
-                id="incomingInterface">
+                id="interface">
                     <option>LAN</option>
                     <option>WAN</option>
                 </select>
@@ -88,12 +88,13 @@ export const handleFormSubmit = (json) => {
         e.preventDefault();
 
         const data = request(form.elements);
+        const clean = cleanData(data)
         const res = getObjects(json, '', data.protocol);
 
         renderResultcontainter();
         renderResults(res);
 
-        console.log(data);
+        console.log(clean);
         console.log(res);
     })
 }
@@ -101,15 +102,59 @@ export const handleFormSubmit = (json) => {
 
 // Get data from form
 const request = elements => Array.from(elements).reduce((data, element) => {
-    if (isValidElement(element)) {
-        // Add the valid field to the object
+    if (isValidElement(element, data)) {
         data[element.id] = element.value.toLowerCase();
     }
     return data;
 }, {})
 
-const isValidElement = element => {
-    return element.id && element.value.toLowerCase();
+const cleanData = clean => {
+    console.log(clean)
+/*
+    const destination = Object.assign(clean.destinationA, clean.destinationP)
+    console.log (destination)
+
+    const source = Object.assign(clean.sourceA, clean.sourceP)
+    console.log (destination)
+
+    const req = Object.assign(destination, source, clean)
+
+    return req;
+    */
+}
+
+const isValidElement = (element, data) => {
+
+    if (element.id == 'destinationAddress') {
+        element.id = 'destinationA';
+        data[element.id] = {
+            'address': element.value
+        }
+        return
+    }
+    if (element.id == 'destinationPort') {
+        element.id = 'destinationP';
+        data[element.id] = {
+            'port': element.value
+        }
+        return
+    }
+    if (element.id == 'sourceAddress') {
+        element.id = 'sourceA';
+        data[element.id] = {
+            'address': element.value
+        }
+        return
+    }
+    if (element.id == 'sourcePort') {
+        element.id = 'sourceP';
+        data[element.id] = {
+            'port': element.value
+        }
+        return
+    } else {
+        return element.id && element.value;
+    }
 }
 
 
@@ -127,9 +172,9 @@ const getObjects = (obj, key, val) => {
                 objects.push(obj);
 
             } else if (obj[i] == val && key == '') {
-                //only add if the object is not already in the array
-                if (objects.lastIndexOf(obj) == -1) {
-                    objects.push(obj);
+            //only add if the object is not already in the array
+            if (objects.lastIndexOf(obj) == -1) {
+                objects.push(obj);
             }
         }
     }
@@ -174,7 +219,7 @@ const renderResults = (result) => {
 
     } else {
         result.forEach(element => {
-      
+
             for (let [key, value] of Object.entries(element)) {
                 const markup = `
                         <li class="list-group-item">${key} <span class="font-weight-bold">${value}</li>
