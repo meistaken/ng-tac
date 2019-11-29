@@ -7,11 +7,10 @@ import * as ruleView from './views/ruleView';
 const state = {};
 
 /** TODO List
- * 
- * 1. Search in global data object
+ * 1. Render full object
+ * 2. Multi seacth
  * 2. Upload JSON config 
  * 3. Upload XML config + convert to JSON
- * 4. Render search result (1)
  */
 
 const generatePage = async() => {
@@ -67,9 +66,10 @@ const pagecontroller = (page) => {
     }
     else if (page == 'rule') {
         ruleView.renderRule();
-        ruleView.handleFormSubmit(state.info.results);
+        // Search only in «filter» object
+        ruleView.handleFormSubmit(state.info.results.filter);
     }
     else {
-        alert('under-constaction')
+        alert('under-constuction')
     }
 };

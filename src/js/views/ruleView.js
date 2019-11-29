@@ -80,6 +80,7 @@ export const renderRule = () => {
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
 
+
 export const handleFormSubmit = (json) => {
     const form = document.getElementById('check-rule');
 
@@ -88,17 +89,19 @@ export const handleFormSubmit = (json) => {
 
         const data = formToJSON(form.elements);
         const res = getObjects(json, '', data.destinationAddress);
-        
+
+        renderResultcontainter();
+        renderResults(data, res);
+
         console.log(data);
         console.log(res);
-
-        renderResults(res);
     })
 }
 
+
 // Get data from form
 const formToJSON = elements => Array.from(elements).reduce((data, element) => {
-    if (isValidElement(element)) { 
+    if (isValidElement(element)) {
         // Add the valid field to the object
         data[element.id] = element.value;
     }
@@ -109,21 +112,22 @@ const isValidElement = element => {
     return element.id && element.value;
 }
 
+
 // Get objects
 const getObjects = (obj, key, val) => {
     let objects = [];
     for (let i in obj) {
         if (!obj.hasOwnProperty(i)) continue;
         if (typeof obj[i] == 'object') {
-            objects = objects.concat(getObjects(obj[i], key, val));    
-        } else 
-        
-        //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
-        if (i == key && obj[i] == val || i == key && val == '') { //
-            objects.push(obj);
-        } else if (obj[i] == val && key == ''){
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else
+
+            //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+            if (i == key && obj[i] == val || i == key && val == '') { //
+                objects.push(obj);
+            } else if (obj[i] == val && key == '') {
             //only add if the object is not already in the array
-            if (objects.lastIndexOf(obj) == -1){
+            if (objects.lastIndexOf(obj) == -1) {
                 objects.push(obj);
             }
         }
@@ -132,11 +136,51 @@ const getObjects = (obj, key, val) => {
 }
 
 //Render result
-const renderResults = (res) => {
+const renderResultcontainter = () => {
 
-    const markup = `
-    <h3>Result</h3>
-    <p>${JSON.stringify(res)}</p>
-    `;
-    document.getElementById('content').insertAdjacentHTML('beforeend', markup);
+    const template = document.getElementById('resultContainer')
+
+    if (template) {
+        template.parentNode.removeChild(template);
+
+        const markup = `
+        <div id="resultContainer" class="col-lg-6 m-auto">
+            <h3 class="mt-3">Result</h3>
+            <div id="res"></div>
+        </div>
+        `;
+        document.getElementById('content').insertAdjacentHTML('beforeend', markup);
+        
+    } else {
+        const markup = `
+        <div id="resultContainer" class="col-lg-6 m-auto">
+            <h3 class="mt-3">Result</h3>
+            <div id="res"></div>
+        </div>
+        `;
+        document.getElementById('content').insertAdjacentHTML('beforeend', markup);
+    }
+}
+
+const renderResults = (data, result) => {
+
+    if (Object.keys(data).length < 3) {
+        const markup = `
+        <p>Пустой запрос</p>
+        `;
+        document.getElementById('res').insertAdjacentHTML('beforeend', markup);
+
+    } else {
+        result.forEach(element => {
+            for (let [key, value] of Object.entries(element)) {
+                const markup = `
+                        <li class="list-group-item">${key} <span class="font-weight-bold">${value}</li>
+                `;
+                document.getElementById('res').insertAdjacentHTML('beforeend', markup);
+            }
+
+            const markup = `</br>`;
+            document.getElementById('res').insertAdjacentHTML('beforeend', markup);
+        });
+    }
 }
