@@ -77,7 +77,7 @@ export const renderRule = () => {
             </form>
             </div>
     `;
-    document.getElementById('content').insertAdjacentHTML('beforeend', markup);
+    content.insertAdjacentHTML('beforeend', markup);
 }
 
 
@@ -87,11 +87,11 @@ export const handleFormSubmit = (json) => {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        const data = formToJSON(form.elements);
-        const res = getObjects(json, '', data.destinationAddress);
+        const data = request(form.elements);
+        const res = getObjects(json, '', data.protocol);
 
         renderResultcontainter();
-        renderResults(data, res);
+        renderResults(res);
 
         console.log(data);
         console.log(res);
@@ -100,16 +100,16 @@ export const handleFormSubmit = (json) => {
 
 
 // Get data from form
-const formToJSON = elements => Array.from(elements).reduce((data, element) => {
+const request = elements => Array.from(elements).reduce((data, element) => {
     if (isValidElement(element)) {
         // Add the valid field to the object
-        data[element.id] = element.value;
+        data[element.id] = element.value.toLowerCase();
     }
     return data;
 }, {})
 
 const isValidElement = element => {
-    return element.id && element.value;
+    return element.id && element.value.toLowerCase();
 }
 
 
@@ -125,62 +125,65 @@ const getObjects = (obj, key, val) => {
             //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
             if (i == key && obj[i] == val || i == key && val == '') { //
                 objects.push(obj);
+
             } else if (obj[i] == val && key == '') {
-            //only add if the object is not already in the array
-            if (objects.lastIndexOf(obj) == -1) {
-                objects.push(obj);
+                //only add if the object is not already in the array
+                if (objects.lastIndexOf(obj) == -1) {
+                    objects.push(obj);
             }
         }
     }
     return objects;
 }
 
-//Render result
+
 const renderResultcontainter = () => {
 
-    const template = document.getElementById('resultContainer')
+    const resultTemplate = document.getElementById('resultContainer')
 
-    if (template) {
-        template.parentNode.removeChild(template);
+    if (resultTemplate) {
+        resultTemplate.parentNode.removeChild(resultTemplate);
 
         const markup = `
         <div id="resultContainer" class="col-lg-6 m-auto">
             <h3 class="mt-3">Result</h3>
-            <div id="res"></div>
+            <div id="resultData"></div>
         </div>
         `;
-        document.getElementById('content').insertAdjacentHTML('beforeend', markup);
-        
+        content.insertAdjacentHTML('beforeend', markup);
+
     } else {
         const markup = `
         <div id="resultContainer" class="col-lg-6 m-auto">
             <h3 class="mt-3">Result</h3>
-            <div id="res"></div>
+            <div id="resultData"></div>
         </div>
         `;
-        document.getElementById('content').insertAdjacentHTML('beforeend', markup);
+        content.insertAdjacentHTML('beforeend', markup);
     }
 }
 
-const renderResults = (data, result) => {
 
-    if (Object.keys(data).length < 3) {
+const renderResults = (result) => {
+
+    if (Object.keys(result).length == 0) {
         const markup = `
         <p>Пустой запрос</p>
         `;
-        document.getElementById('res').insertAdjacentHTML('beforeend', markup);
+        resultData.insertAdjacentHTML('beforeend', markup);
 
     } else {
         result.forEach(element => {
+      
             for (let [key, value] of Object.entries(element)) {
                 const markup = `
                         <li class="list-group-item">${key} <span class="font-weight-bold">${value}</li>
                 `;
-                document.getElementById('res').insertAdjacentHTML('beforeend', markup);
+                resultData.insertAdjacentHTML('beforeend', markup);
             }
 
             const markup = `</br>`;
-            document.getElementById('res').insertAdjacentHTML('beforeend', markup);
+            resultData.insertAdjacentHTML('beforeend', markup);
         });
     }
 }
