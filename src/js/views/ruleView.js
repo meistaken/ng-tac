@@ -1,3 +1,7 @@
+import {
+    filter
+} from "minimatch";
+
 export const renderRule = () => {
     const markup = `
     <div class="col-lg-6 m-auto">
@@ -81,70 +85,72 @@ export const renderRule = () => {
 }
 
 
-export const handleFormSubmit = (json) => {
+export const handleFormSubmit = json => {
     const form = document.getElementById('check-rule');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        const data = request(form.elements);
-        const clean = cleanData(data)
-        const res = getObjects(json, '', data.protocol);
+        const data = formData(form.elements);
+        //const res = getObjects(json, '', data.protocol);
+        doRequest(data, json);
 
         renderResultcontainter();
-        renderResults(res);
+        renderResults(doRequest);
 
-        console.log(clean);
-        console.log(res);
+        //console.log(request);
+        //console.log(data);
+        //console.log(res);
     })
 }
 
 
 // Get data from form
-const request = elements => Array.from(elements).reduce((data, element) => {
+const formData = elements => Array.from(elements).reduce((data, element) => {
     if (isValidElement(element, data)) {
         data[element.id] = element.value.toLowerCase();
     }
     return data;
 }, {})
 
-const cleanData = clean => {
-    console.log(clean)
-/*
-    const destination = Object.assign(clean.destinationA, clean.destinationP)
-    console.log (destination)
-
-    const source = Object.assign(clean.sourceA, clean.sourceP)
-    console.log (destination)
-
-    const req = Object.assign(destination, source, clean)
-
-    return req;
-    */
+const isValidElement = element => {
+    return element.id && element.value;
 }
 
-const isValidElement = (element, data) => {
+/*
+const cleanData = clean => {
+    let cleaned = {}
+
+    for (let key in clean) {
+
+        const list = ['destinationA', 'destinationP', 'sourceA', 'sourceP']
+
+        list.forEach(function (filterItem) {
+            if (key == filterItem) cleaned[key] = clean[key];
+        })
+    console.log(cleaned);
+    return cleaned
+    }
+}
+
 
     if (element.id == 'destinationAddress') {
         element.id = 'destinationA';
         data[element.id] = {
             'address': element.value
         }
-        return
     }
     if (element.id == 'destinationPort') {
         element.id = 'destinationP';
         data[element.id] = {
             'port': element.value
         }
-        return
     }
     if (element.id == 'sourceAddress') {
         element.id = 'sourceA';
         data[element.id] = {
             'address': element.value
         }
-        return
     }
     if (element.id == 'sourcePort') {
         element.id = 'sourceP';
@@ -152,11 +158,43 @@ const isValidElement = (element, data) => {
             'port': element.value
         }
         return
+        
     } else {
-        return element.id && element.value;
-    }
-}
+        */
+/*
+const res = getObjects(json, '' , val)
+console.log(res)
+*/
+ 
+const doRequest = form => {
+    let request = {}
 
+    for (let key in form) { 
+        if (key == 'destinationAddress') {
+            request = {'destination': {'address': form.destinationAddress}}
+        }
+        if (key == 'destinationPort') {
+            request = {'destination': {'port': form.destinationPort}}
+        }
+        if (key == 'sourceAddress') {
+            request = {'source': {'address': form.sourceAddress}}
+        }
+        if (key == 'sourcePort') {
+            request = {'source': {'port': form.sourcePort}}
+        }
+        else {
+            request[key] = form.key
+        }
+    }
+    
+    delete request.destinationPort;
+    delete request.destinationAddress;
+    delete request.sourceAddress;
+    delete request.sourcePort;
+    
+    console.log(request);
+    return request;
+}
 
 // Get objects
 const getObjects = (obj, key, val) => {
