@@ -93,12 +93,12 @@ export const handleFormSubmit = json => {
 
         const data = formData(form.elements);
         //const res = getObjects(json, '', data.protocol);
-        doRequest(data, json);
+        doRequest(data);
 
         renderResultcontainter();
         renderResults(doRequest);
 
-        //console.log(request);
+        console.log(cleanReq);
         //console.log(data);
         //console.log(res);
     })
@@ -133,48 +133,44 @@ const cleanData = clean => {
     }
 }
 
-
-    if (element.id == 'destinationAddress') {
-        element.id = 'destinationA';
-        data[element.id] = {
-            'address': element.value
-        }
-    }
-    if (element.id == 'destinationPort') {
-        element.id = 'destinationP';
-        data[element.id] = {
-            'port': element.value
-        }
-    }
-    if (element.id == 'sourceAddress') {
-        element.id = 'sourceA';
-        data[element.id] = {
-            'address': element.value
-        }
-    }
-    if (element.id == 'sourcePort') {
-        element.id = 'sourceP';
-        data[element.id] = {
-            'port': element.value
-        }
-        return
-        
-    } else {
-        */
-/*
 const res = getObjects(json, '' , val)
 console.log(res)
-*/
- 
-const doRequest = form => {
-    let request = {}
 
+ */
+
+const doRequest = data => {
+    const cleanReq = Object.entriesFrom(
+    Object.entries(data).forEach(([k, v]) => {
+        if (k == 'destinationAddress') {
+            [k, v] = ['destination', {'address': data.destinationAddress}]
+        }
+
+        /*
+        if (key == 'destinationPort') 
+            v = { ...{'destination': {'port': form.destinationPort}}
+        }
+        if (key == 'sourceAddress') 
+            v =  {'source': {'address': form.sourceAddress}}
+        
+        if (key == 'sourcePort') 
+            v =  {'source': {'port': form.sourcePort}}
+        */
+        else {
+            [k, v] = [k, v]
+        }
+    })
+    )
+    return cleanReq
+}
+
+    
+    /*
     for (let key in form) { 
         if (key == 'destinationAddress') {
-            request = {'destination': {'address': form.destinationAddress}}
+            request = { ...{'destination': {'address': form.destinationAddress}}}
         }
         if (key == 'destinationPort') {
-            request = {'destination': {'port': form.destinationPort}}
+            request = { ...{'destination': {'port': form.destinationPort}}}
         }
         if (key == 'sourceAddress') {
             request = {'source': {'address': form.sourceAddress}}
@@ -186,15 +182,12 @@ const doRequest = form => {
             request[key] = form.key
         }
     }
-    
+
     delete request.destinationPort;
     delete request.destinationAddress;
     delete request.sourceAddress;
     delete request.sourcePort;
-    
-    console.log(request);
-    return request;
-}
+    */
 
 // Get objects
 const getObjects = (obj, key, val) => {
