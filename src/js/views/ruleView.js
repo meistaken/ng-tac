@@ -1,6 +1,7 @@
 import {
     filter
 } from "minimatch";
+import { join } from "path";
 
 export const renderRule = () => {
     const markup = `
@@ -91,16 +92,24 @@ export const handleFormSubmit = json => {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        const data = formData(form.elements);
-        //const res = getObjects(json, '', data.protocol);
-        doRequest(data);
+        let dataForm = formData(form.elements);
+        fillFromForm(dataForm);
 
         renderResultcontainter();
-        renderResults(doRequest);
+        //renderResults(res);
 
-        console.log(cleanReq);
-        //console.log(data);
-        //console.log(res);
+        function search(list, query) {
+            return list.filter(item => 
+              Object.keys(query).every(key => 
+                item[key] === query[key])
+              );
+          }
+        
+        let baza = json.rule;
+
+        //console.log(json)
+        console.log(objFromForm)
+        console.log('test', search(baza, {protocol: 'tcp'}));
     })
 }
 
@@ -117,101 +126,30 @@ const isValidElement = element => {
     return element.id && element.value;
 }
 
-/*
-const cleanData = clean => {
-    let cleaned = {}
+const fillFromForm = data => Object.entries(data).map(([el]) => {
+        if (el == 'destinationAddress') {
+            objFromForm.destination.address = data.destinationAddress
+        } else if (el == 'destinationPort') {
+            objFromForm.destination.port = data.destinationPort
+        } else if (el == 'sourceAddress') {
+            objFromForm.source.address = data.sourceAddress
+        } else if (el == 'sourcePort') {
+            objFromForm.source.port = data.sourcePort
+        } else if (el == 'interface') {
+            objFromForm.interface = data.interface
+        }  else if (el == 'protocol') {
+            objFromForm.protocol = data.protocol
+        }
+        return objFromForm
+})
 
-    for (let key in clean) {
-
-        const list = ['destinationA', 'destinationP', 'sourceA', 'sourceP']
-
-        list.forEach(function (filterItem) {
-            if (key == filterItem) cleaned[key] = clean[key];
-        })
-    console.log(cleaned);
-    return cleaned
-    }
+// accumulator
+let objFromForm = {
+    destination: {address: {}, port: {}},
+    source: {address: {}, port: {}},
+    interface: {},
+    protocol: {}
 }
-
-const res = getObjects(json, '' , val)
-console.log(res)
-
- */
-
-const doRequest = data => {
-    const cleanReq = Object.entriesFrom(
-    Object.entries(data).forEach(([k, v]) => {
-        if (k == 'destinationAddress') {
-            [k, v] = ['destination', {'address': data.destinationAddress}]
-        }
-
-        /*
-        if (key == 'destinationPort') 
-            v = { ...{'destination': {'port': form.destinationPort}}
-        }
-        if (key == 'sourceAddress') 
-            v =  {'source': {'address': form.sourceAddress}}
-        
-        if (key == 'sourcePort') 
-            v =  {'source': {'port': form.sourcePort}}
-        */
-        else {
-            [k, v] = [k, v]
-        }
-    })
-    )
-    return cleanReq
-}
-
-    
-    /*
-    for (let key in form) { 
-        if (key == 'destinationAddress') {
-            request = { ...{'destination': {'address': form.destinationAddress}}}
-        }
-        if (key == 'destinationPort') {
-            request = { ...{'destination': {'port': form.destinationPort}}}
-        }
-        if (key == 'sourceAddress') {
-            request = {'source': {'address': form.sourceAddress}}
-        }
-        if (key == 'sourcePort') {
-            request = {'source': {'port': form.sourcePort}}
-        }
-        else {
-            request[key] = form.key
-        }
-    }
-
-    delete request.destinationPort;
-    delete request.destinationAddress;
-    delete request.sourceAddress;
-    delete request.sourcePort;
-    */
-
-// Get objects
-const getObjects = (obj, key, val) => {
-    let objects = [];
-    for (let i in obj) {
-        if (!obj.hasOwnProperty(i)) continue;
-        if (typeof obj[i] == 'object') {
-            objects = objects.concat(getObjects(obj[i], key, val));
-        } else
-
-            //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
-            if (i == key && obj[i] == val || i == key && val == '') { //
-                objects.push(obj);
-
-            } else if (obj[i] == val && key == '') {
-            //only add if the object is not already in the array
-            if (objects.lastIndexOf(obj) == -1) {
-                objects.push(obj);
-            }
-        }
-    }
-    return objects;
-}
-
 
 const renderResultcontainter = () => {
 
