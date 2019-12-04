@@ -87,3 +87,80 @@ function search(list, query) {
         item[key] === query[key])
       );
   }
+
+
+  ////// WORKING OBJECT Create
+const dataFromForm = data => {
+    let objFromForm = {
+        destination: {address: {}, port: {}},
+        source: {address: {}, port: {}},
+        interface: {},
+        protocol: {}
+    }
+
+    Object.entries(data).map(([k,v]) => {
+        if (k == 'destinationAddress') {
+            objFromForm.destination.address = data.destinationAddress
+        } if (k == 'destinationPort') {
+            objFromForm.destination.port = data.destinationPort
+
+
+        } if (k == 'sourceAddress') {
+            objFromForm.source.address = data.sourceAddress
+        } if (k == 'sourcePort') {
+            if (v == ''){objFromForm.source = {"any": []}}
+            else {objFromForm.source.port = data.sourcePort}
+
+        } if (k == 'interface') {
+            objFromForm.interface = data.interface
+
+
+        } if (k == 'protocol') {
+            if (v == 'any'){ 
+                objFromForm.protocol = ''
+            }
+                else {objFromForm.protocol = data.protocol}
+        }  
+    })
+    return objFromForm
+}
+
+
+
+/* trying to destruct object
+
+        const {dst, src, int, prtc} = requestObject;
+        console.log(dst)
+
+
+        const creatRequest = requestObject => {
+
+            //destination
+            if (requestObject.destination.address == {''}) {
+                k = 'destination'
+                v = ''
+            }
+            else {
+                k = 'destination'
+                v = {'address': requestObject.destination.address}
+            }
+            if (requestObject.destination.port == {''}) {
+                k = 'destination'
+                v = ''
+            }
+            else {
+                k = 'destination'
+                v = {'port': requestObject.destination.port}
+            }
+
+            //protocol
+            if (requestObject.protocol == {''}) {
+                k = 'protocol'
+                v = ''
+            }
+            else {
+                k = 'protocol'
+                v = requestObject.protocol}
+            }
+
+*/
