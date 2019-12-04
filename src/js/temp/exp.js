@@ -78,3 +78,12 @@ const getObjects = (obj, key, val) => {
     }
     return objects;
 }
+
+console.log('test', search(json.rule, {descr: "SalSolo MAIL"}));
+
+function search(list, query) {
+    return list.filter(item => 
+      Object.keys(query).every(key => 
+        item[key] === query[key])
+      );
+  }

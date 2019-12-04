@@ -96,22 +96,38 @@ export const handleFormSubmit = json => {
         fillFromForm(dataForm);
 
         renderResultcontainter();
-        //renderResults(res);
+        renderResults(getObjects(json.rule, 'associated-rule-id','' ));
 
-        function search(list, query) {
-            return list.filter(item => 
-              Object.keys(query).every(key => 
-                item[key] === query[key])
-              );
-          }
-        
-        let baza = json.rule;
-
-        //console.log(json)
-        console.log(objFromForm)
-        console.log('test', search(baza, {protocol: 'tcp'}));
+        // test
+        let test = ['source', 'destination', 'protocol', 'target', 'local-port', 'interface', 'descr', 'associated-rule-id', 'created', 'updated']
+        for(let i in test)
+        { console.log(`${test[i]}`, getObjects(json, test[i],'' ))    }
     })
 }
+
+
+const getObjects = (obj, key, val) => {
+    let objects = [];
+    for (let i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+                objects = objects.concat(getObjects(obj[i], key, val));
+        } else
+
+            //if key matches and value matches or if key matches and value is not passed 
+            if (i == key && obj[i] == val || i == key && val == '') { 
+                objects.push(obj);
+
+            } else if (obj[i] == val && key == '') {
+
+            //only add if the object is not already in the array
+            if (objects.lastIndexOf(obj) == -1) {
+                objects.push(obj);
+            }
+        }
+    }
+    return objects;
+}        
 
 
 // Get data from form
@@ -126,18 +142,18 @@ const isValidElement = element => {
     return element.id && element.value;
 }
 
-const fillFromForm = data => Object.entries(data).map(([el]) => {
-        if (el == 'destinationAddress') {
+const fillFromForm = data => Object.entries(data).map(([k]) => {
+        if (k == 'destinationAddress') {
             objFromForm.destination.address = data.destinationAddress
-        } else if (el == 'destinationPort') {
+        } else if (k == 'destinationPort') {
             objFromForm.destination.port = data.destinationPort
-        } else if (el == 'sourceAddress') {
+        } else if (k == 'sourceAddress') {
             objFromForm.source.address = data.sourceAddress
-        } else if (el == 'sourcePort') {
+        } else if (k == 'sourcePort') {
             objFromForm.source.port = data.sourcePort
-        } else if (el == 'interface') {
+        } else if (k == 'interface') {
             objFromForm.interface = data.interface
-        }  else if (el == 'protocol') {
+        }  else if (k == 'protocol') {
             objFromForm.protocol = data.protocol
         }
         return objFromForm
