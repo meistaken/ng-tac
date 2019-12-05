@@ -1,6 +1,7 @@
 
 # Created by https://www.gitignore.io/api/sass,macos,linux,python,pycharm,visualstudiocode
 node_modules
+temp
 
 ### Linux ###
 *~
