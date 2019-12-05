@@ -8,9 +8,9 @@ const state = {};
 
 /** TODO List
  * 1. Render full object
- * 2. Multi seacth
  * 2. Upload JSON config 
  * 3. Upload XML config + convert to JSON
+ * 4. Add clear button
  */
 
 const generatePage = async() => {
