@@ -7,10 +7,11 @@ import * as ruleView from './views/ruleView';
 const state = {};
 
 /** TODO List
- * 1. Render full object
- * 2. Upload JSON config 
- * 3. Upload XML config + convert to JSON
- * 4. Add clear button
+ * 1. Upload JSON config 
+ * 2. Upload XML config + convert to JSON
+ * 3. Search in incomplete request in destination or source fields
+ * 4. Need to test search
+ * 5. Refactor code
  */
 
 const generatePage = async() => {

@@ -80,54 +80,56 @@ export const renderRule = () => {
     content.insertAdjacentHTML('beforeend', markup);
 }
 
+
 export const handleFormSubmit = json => {
     const form = document.getElementById('check-rule')
     const submitButton = document.getElementById('search')
     const clearButton = document.getElementById('clear')
 
     clearButton.addEventListener('click', e => {
+        const resultTemplate = document.getElementById('resultContainer')
         e.preventDefault();
+        if (resultTemplate) {
+            resultTemplate.parentNode.removeChild(resultTemplate);
+        }
     })
 
     submitButton.addEventListener('click', e => {
+        const rawData = formData(form.elements);
+        const requestObject = createRequest(rawData);
+
         e.preventDefault();
-
-        let dataForm = formData(form.elements);
-
-        const requestObject = (dataFromForm(dataForm));
-
-        let resArr = []
-        for (let prop in requestObject) {
-            resArr[prop] = getObjects(json.rule, prop, requestObject[prop])
-        }
-
-        let mArr = Object.values(resArr);
-
-        const compare = arr => {
-            for (let i=0; i < arr.length - 1 ; i++ ) {
-                console.log((arr[i]).every(e => (arr[i+1]).includes(e)))
-            }
-           // return (mArr == true)
-        } 
-
-        renderResultcontainter(compare(mArr));
-
-        //renderResults(getObjects(json, 'destination', '{address: "10.10.30.31",
-        // test
-        /*
-        let test = ['destination', 'source',  'protocol', 'target', 'local-port', 'interface', 'descr', 'associated-rule-id', 'created', 'updated']
-        for(let i in test){
-            console.log(`${test[i]}`, getObjects(json, test[i], {"address": "10.10.30.31", "port": "80"}))}
-        */
+        renderResultcontainter();
+        renderResults(getResultArr(requestObject, json));
     })
 }
+
+
+const getResultArr = (requestObject, json) => {
+    const hash = [];
+    for (let prop in requestObject) {
+        hash[prop] = getObjects(json.rule, prop, requestObject[prop])
+    }
+    
+    const resultArrs = Object.values(hash)
+    console.log('Arrays to compare:', resultArrs)
+
+    let final = []
+        for (let i=0; i < resultArrs.length - 1 ; i++ ) {
+            let res = (resultArrs[i]).every(e => (resultArrs[i+1]).includes(e))
+            if(res){
+                final = resultArrs[i]
+            }
+        }
+    return final    
+}
+
 
 const getObjects = (obj, key, val) => {
     let objects = [];
     for (let i in obj) {
         if (!obj.hasOwnProperty(i)) continue;
         if (key == 'source' || key == 'destination') {
-
             if (i == key && JSON.stringify(obj[i]) == JSON.stringify(val) || i == key && val == '') { 
                 objects.push(obj);
 
@@ -139,8 +141,7 @@ const getObjects = (obj, key, val) => {
         }
         if (typeof obj[i] == 'object') {
             objects = [...objects, ...getObjects(obj[i], key, val)]
-        } else
-
+        } else {
             if (i == key && obj[i] == val || i == key && val == '') { 
                 objects.push(obj);
             } else if (obj[i] == val && key == '') {
@@ -150,6 +151,7 @@ const getObjects = (obj, key, val) => {
                 objects.push(obj);
                 }
             }
+        }
     }
     return objects;
 }        
@@ -163,12 +165,13 @@ const formData = elements => Array.from(elements).reduce((data, element) => {
     return data;
 }, {})
 
+
 const isValidElement = element => {
     return element.id && element.value;
 }
 
-const dataFromForm = data => {
-    
+
+const createRequest = data => {
     let objFromForm = {
         destination: {},
         source: {},
@@ -176,31 +179,31 @@ const dataFromForm = data => {
         protocol: {}
     }
 
-    const fillReq = objFromForm => {
-        Object.entries(data).map(([k,v]) => {
-            if (k == 'destinationAddress') {
-                objFromForm.destination['address'] = data.destinationAddress
-            } if (k == 'destinationPort') {
-                objFromForm.destination['port'] = data.destinationPort
-    
-            } if (k == 'sourceAddress') {
-                objFromForm.source['address'] = data.sourceAddress
-            } if (k == 'sourcePort') {
-                objFromForm.source['port'] = data.sourcePort
-    
-            } if (k == 'interface') {
-                objFromForm['interface'] = data.interface
-    
-            } if (k == 'protocol') {
-                if (v == 'any'){objFromForm['protocol'] = ''}
-                    else {objFromForm['protocol'] = data.protocol}
-            } if (Object.entries(objFromForm.destination).length === 0) { objFromForm.destination['any'] = []
-            } if (Object.entries(objFromForm.source).length === 0) { objFromForm.source['any'] = []}
-        })
-    }
-    fillReq(objFromForm)
+    Object.entries(data).map(([k,v]) => {
+        if (k == 'destinationAddress') {
+            objFromForm.destination['address'] = data.destinationAddress
+        } if (k == 'destinationPort') {
+            objFromForm.destination['port'] = data.destinationPort
+
+        } if (k == 'sourceAddress') {
+            objFromForm.source['address'] = data.sourceAddress
+        } if (k == 'sourcePort') {
+            objFromForm.source['port'] = data.sourcePort
+
+        } if (k == 'interface') {
+            objFromForm['interface'] = data.interface
+
+        } if (k == 'protocol') {
+            if (v == 'any'){objFromForm['protocol'] = ''}
+                else {objFromForm['protocol'] = data.protocol}
+
+        } if (Object.entries(objFromForm.destination).length === 0) { objFromForm.destination['any'] = []
+        
+        } if (Object.entries(objFromForm.source).length === 0) { objFromForm.source['any'] = []}
+    })
     return objFromForm
 }
+
 
 const renderResultcontainter = () => {
     const resultTemplate = document.getElementById('resultContainer')
@@ -229,19 +232,16 @@ const renderResultcontainter = () => {
 
 
 const renderResults = (result) => {
-
     if (Object.keys(result).length == 0) {
         const markup = `
-        <p>Пустой запрос</p>
+        <p>Результатов нет</p>
         `;
         resultData.insertAdjacentHTML('beforeend', markup);
-
     } else {
         result.forEach(element => {
-
             for (let [key, value] of Object.entries(element)) {
                 const markup = `
-                        <li class="list-group-item">${key} <span class="font-weight-bold">${value}</li>
+                        <li class="list-group-item">${JSON.stringify(key)} <span class="font-weight-bold">${JSON.stringify(value)}</li>
                 `;
                 resultData.insertAdjacentHTML('beforeend', markup);
             }

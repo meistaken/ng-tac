@@ -4,17 +4,6 @@
 //  console.log(Object.entries(data)) 
 //  console.log(Object.fromEntries(Object.entries(data)))
 
-
-    if (k == 'destinationAddress' || k == 'destinationPort') {
-        k = ['destination']
-        if (k == 'destinationAddress') {
-            v = [{'address': data.destinationAddress}, ...args]
-        }
-        if (k == 'destinationPort') {
-            v = [{'port': data.destinationPort}, ...args]
-        }
-
-
 //map
 
 const rqst = data => Object.fromEntries(Object.entries(data).map(([k, v]) => {
@@ -32,7 +21,7 @@ const rqst = data => Object.fromEntries(Object.entries(data).map(([k, v]) => {
     return ([k, v])
 }))
 
-
+/*
 const rqst = data => Object.entries(data).map(([k, v]) => {
         if (k == 'destinationAddress') {
             final.push({'destination': {'address': data.destinationAddress)
@@ -50,7 +39,7 @@ const rqst = data => Object.entries(data).map(([k, v]) => {
         return final
     
 })
-
+*/
 
 
 
@@ -164,3 +153,11 @@ const dataFromForm = data => {
             }
 
 */
+
+//renderResults(getObjects(json, 'destination', '{address: "10.10.30.31",
+// test
+
+let test = ['destination', 'source',  'protocol', 'target', 'local-port', 'interface', 'descr', 'associated-rule-id', 'created', 'updated']
+for(let i in test){
+    console.log(`${test[i]}`, getObjects(json, test[i], {"address": "10.10.30.31", "port": "80"}))}
+        
