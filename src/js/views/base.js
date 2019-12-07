@@ -1,6 +1,7 @@
 export const elements = {
     startButtonLocation: document.getElementById('uploadJson'),
-    startButton: document.getElementById('startApp'),
+    demoButton: document.getElementById('startApp'),
+    uploadButton: document.getElementById('fileUpload'),
     pageMarkup: document.getElementById('data-page-container'),
     content: document.getElementById('content'),
     resultData: document.getElementById('resData'),

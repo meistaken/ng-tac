@@ -161,3 +161,20 @@ let test = ['destination', 'source',  'protocol', 'target', 'local-port', 'inter
 for(let i in test){
     console.log(`${test[i]}`, getObjects(json, test[i], {"address": "10.10.30.31", "port": "80"}))}
         
+//file upload
+try {
+    let files = e.target.files;
+    if (!files.length) {
+        alert('No file selected!');
+        return;
+    }
+    let file = files[0];
+    let reader = new FileReader();
+    reader.onload = event => {
+        const uploadJson = event.target.result;
+        console.log('FILE CONTENT', event.target.result);
+    }
+    reader.readAsText(file);
+} catch (err) {
+    console.error(err);
+}
