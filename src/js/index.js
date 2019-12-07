@@ -3,15 +3,15 @@ import {elements} from './views/base';
 import testData from './data/config.json';
 import * as mainView from './views/mainView';
 import * as ruleView from './views/ruleView';
-
+import * as startPage from './views/startPage'
 /** TODO List
  * 1. Upload XML config + convert to JSON
  * 2. Search in incomplete request in destination or source fields
  * 3. Need to test search
  * 4. Refactor code
-— добавить проверки на корректность загруженного конфига, поставить ограничение на размер загрузки, просто проверить наличие ключей определенных
-— *пофиксить немного алгоритм поиска
-— добавить модал для загрузки нового конфига
+ * 5. Upload data validation
+ * 6 Fix search alg
+ * 7. Reset evlisteners
  */
 
 const state = {};
@@ -67,7 +67,7 @@ elements.demoButton.addEventListener('click', e => {
 
 
 //Import testData from file
-elements.uploadButton.addEventListener('input', e => {
+elements.uploadInput.addEventListener('input', e => {
     e.preventDefault();
     generatePage(e);
 });
@@ -103,7 +103,7 @@ const handleUpload = async (event) => {
 
 // Add eventListeners for navigation
 const handleNav = () => {
-    document.querySelector('.navbar-nav').addEventListener('click', e => {
+    document.querySelector('.navbar').addEventListener('click', e => {
         e.preventDefault();
         pagecontroller(event.target.id);
     });
@@ -114,18 +114,49 @@ const handleNav = () => {
 const pagecontroller = page => {
 
     // Prepare UI
-    mainView.clearContent();
+    mainView.clearContent()
 
     //Show page
     if (page == 'info') {
         mainView.renderInfoTemplate();
         mainView.renderInfo(state.info);
-    } else if (page == 'rule') {
-        ruleView.renderRule();
 
+    } else if (page == 'rule') {
+        ruleView.renderRule()
         // Search only in «filter» object
         ruleView.handleFormSubmit(state.info.filter);
-    } else {
-        alert('under-constuction')
+        
+    } else if (page == 'new') {
+        renderModal()
+
+    } else if (page == 'start') {
+        mainView.clearAll()
+        startPage.layout()
     }
 };
+const renderModal = () => {
+    const markup = `
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Upload new JSON-configuration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <label class="btn btn-lg btn-primary mb-0 mr-2">
+            Upload JSON <input id="fileUpload" type="file" hidden accept="application/json" />
+        </label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ `;
+ document.body.insertAdjacentHTML('beforeend', markup);
+}

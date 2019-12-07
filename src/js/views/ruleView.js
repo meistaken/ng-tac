@@ -2,7 +2,7 @@ import {elements} from './base';
 
 export const renderRule = () => {
     const markup = `
-    <div class="col-lg-6 m-auto">
+    <div class="col-md-10 m-auto">
         <h2>Rule Checker</h2>
         <form id="check-rule">
             <div class="form-row">
@@ -212,7 +212,7 @@ const renderResultcontainter = () => {
         resultTemplate.parentNode.removeChild(resultTemplate);
 
         const markup = `
-        <div id="resultContainer" class="col-lg-6 m-auto">
+        <div id="resultContainer" class="col-lg-10 m-auto">
             <h3 class="mt-3">Result</h3>
             <div id="resultData"></div>
         </div>
@@ -221,7 +221,7 @@ const renderResultcontainter = () => {
 
     } else {
         const markup = `
-        <div id="resultContainer" class="col-lg-6 m-auto">
+        <div id="resultContainer" class="col-lg-10 m-auto">
             <h3 class="mt-3">Result</h3>
             <div id="resultData"></div>
         </div>

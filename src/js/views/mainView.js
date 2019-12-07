@@ -5,6 +5,10 @@ export const clearButton = () => {
     elements.startButtonLocation.parentNode.removeChild(elements.startButtonLocation);
 }
 
+// Clear content
+export const clearAll = () => {
+    document.body.innerHTML = '';
+}
 
 // Clear content
 export const clearContent = () => {
@@ -15,8 +19,8 @@ export const clearContent = () => {
 // Render layout
 export const renderTemplate = () => {
     const markup = `
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="#">Support assistant</a>  
+    <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand h1 ml-4 mb-0" href="#" id="start">ngtac helper</a> 
 
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -25,22 +29,22 @@ export const renderTemplate = () => {
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
 
-                <li class="navbar-item"
+                <li class="navbar-item h5 mr-4 my-auto"
                 data-element="page" >
-                    <a href="#" class="nav-link" id="info">Information</a>
+                    <a href="#" class="nav-link" id="info">information</a>
                 </li>
 
-                <li class="navbar-item"
+                <li class="navbar-item h5 mr-4 my-auto"
                 data-element="page" >                    
-                    <a href="#" class="nav-link" id="rule">Rule checker</a>
+                    <a href="#" class="nav-link" id="rule">rule checker</a>
                 </li>
 
-                <button class="btn btn-outline-primary" type="submit" id="new">Add new config</button>
+                <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModal" id="new">new config</button>
             </ul>
         </div>    
     </nav>
 
-    <div class="container col-mg-8 mt-3" id="content"></div>
+    <div class="container col-lg-6 m-auto" id="content"></div>
  `;
     elements.pageMarkup.insertAdjacentHTML('beforeend', markup);
 }
