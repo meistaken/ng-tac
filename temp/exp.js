@@ -7,6 +7,44 @@ crossorigin="anonymous"></script>
 
 //map
 
+/*
+// Add eventListeners for navigation
+const handleNav = () => {
+    document.querySelector('.navbar').addEventListener('click', e => {
+        e.preventDefault();
+        pagecontroller(event.target.id);
+    });
+};
+*/
+
+export const modal = () => {
+    const markup = `
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Upload new JSON-configuration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <label class="btn btn-lg btn-primary mb-0 mr-2">
+            Upload JSON <input id="fileUpload" type="file" hidden accept="application/json" />
+        </label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ `;
+ document.body.insertAdjacentHTML('beforeend', markup);
+}
+
+
 const rqst = data => Object.fromEntries(Object.entries(data).map(([k, v]) => {
     if (k == 'destinationAddress') {
         [k, v] = ['destination', {'address': data.destinationAddress}]

@@ -1,86 +1,5 @@
 import {elements} from './base';
 
-export const renderRule = () => {
-    const markup = `
-    <div class="col-md-10 m-auto">
-        <h2>Rule Checker</h2>
-        <form id="check-rule">
-            <div class="form-row">
-                <div class="col">
-                    <label>Source Address</label>
-                    <input 
-                    type="text"
-                    id="sourceAddress"
-                    class="form-control mb-3"   
-                    placeholder="Source address"  
-                    value=""                        
-                    >
-                </div>
-
-                <div class="col-md-4">
-                    <label>Source Port</label>
-                    <input 
-                    type="text"
-                    id="sourcePort"
-                    class="form-control mb-3"   
-                    placeholder="Source Port"
-                    >
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <label>Destination Address</label>
-                    <input 
-                    type="text"
-                    class="form-control mb-3" 
-                    id="destinationAddress" 
-                    placeholder="Destination address"
-                    >
-                </div>
-                <div class="col-md-4">
-                    <label>Destination Port</label>
-                    <input 
-                    type="text"
-                    class="form-control mb-3" 
-                    id="destinationPort" 
-                    placeholder="Destination Port"
-                    >
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <label>Protocol</label>
-                    <select 
-                    class="form-control mb-3" 
-                    id="protocol">
-                        <option>any</option>
-                        <option>TCP</option>
-                        <option>UDP</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <label>Incoming interface</label>
-                    <select 
-                    class="form-control mb-3" 
-                    id="interface">
-                        <option>LAN</option>
-                        <option>WAN</option>
-                    </select>
-                </div>
-            </div>
-            <div class='form-row justify-content-end'>
-                <button id="clear" class="btn btn-outline-primary ml-2 mt-2 col-md-4" type="clear" >Clear form</button>
-                <button id="search" class="btn btn-primary ml-2 mt-2 col-md-4" type="submit" >Check rule</button>
-            </div>        
-        </form>
-    </div>
-    `;
-    content.insertAdjacentHTML('beforeend', markup);
-}
-
-
 export const handleFormSubmit = json => {
     const form = document.getElementById('check-rule')
     const submitButton = document.getElementById('search')
@@ -217,7 +136,7 @@ const renderResultcontainter = () => {
             <div id="resultData"></div>
         </div>
         `;
-        content.insertAdjacentHTML('beforeend', markup);
+        elements.container.insertAdjacentHTML('beforeend', markup);
 
     } else {
         const markup = `
@@ -226,7 +145,7 @@ const renderResultcontainter = () => {
             <div id="resultData"></div>
         </div>
         `;
-        content.insertAdjacentHTML('beforeend', markup);
+        elements.container.insertAdjacentHTML('beforeend', markup);
     }
 }
 
