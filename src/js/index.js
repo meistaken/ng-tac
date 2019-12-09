@@ -86,14 +86,32 @@ document.addEventListener('click', event => {
         generatePage();
     } if (event.target.matches('.nl')) {
         pagecontroller(event.target.id);
+    } if (event.target.matches('#uploadModal')) {
+        if(document.querySelector('#modalFileUpload').files.length == 0) {
+            console.log('файл не выбран')
+        } if(document.querySelector('#modalFileUpload').files.length !==0) {
+            console.log(document.querySelector('#modalFileUpload').files[0])
+           generatePage(document.querySelector('#modalFileUpload').files[0]); 
+        }
     } 
 }, false);
 
 
-document.addEventListener('input', event => {
+document.addEventListener('input', async(event) => {
     if (event.target.matches('#fileUpload')) {
         generatePage(event);
+    } if (event.target.matches('#modalFileUpload')) {
+        handleModal(event)
     } 
 }, false);
 
+
+const handleModal = (event) => {
+    const file = event.target.files[0];
+    try {
+        document.querySelector('.modal-body').insertAdjacentHTML('beforeend', `<span>Файл ${file.name} успешно загружен</span>`);
+    } catch (e) {
+        alert(e.message)
+    }
+}
 

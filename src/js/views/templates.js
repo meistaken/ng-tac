@@ -20,7 +20,7 @@ export const welcomeScreen = () => {
 export const nav = () => {
     const markup = `
     <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand h1 ml-4 mb-0 nl" href="#" id="start">ngtac helper</a> 
+        <a class="navbar-brand h1 ml-4 mb-0 nl" href="#" id="start" >ngtac helper</a> 
 
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -28,18 +28,11 @@ export const nav = () => {
         
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
+                <li class="navbar-item h5 mr-4 my-auto" ><a href="#" class="nav-link nl" id="info">information</a></li>
 
-                <li class="navbar-item h5 mr-4 my-auto"
-                data-element="page" >
-                    <a href="#" class="nav-link nl" id="info">information</a>
-                </li>
-
-                <li class="navbar-item h5 mr-4 my-auto"
-                data-element="page" >                    
-                    <a href="#" class="nav-link nl" id="rule">rule checker</a>
-                </li>
-
-                <button type="button" class="btn btn-lg btn-primary nl" data-toggle="modal" data-target="#exampleModal" id="new">new config</button>
+                <li class="navbar-item h5 mr-4 my-auto" ><a href="#" class="nav-link nl" id="rule">rule checker</a></li>
+        
+                <button class="btn btn-lg btn-primary nl" data-toggle="modal" data-target="#uploadModal" id="new">new config</button>
             </ul>
         </div>    
     </nav>
@@ -159,8 +152,8 @@ export const renderRule = () => {
 // Render upload modal
 export const modal = () => {
     const markup = `
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal" id="uploadModal" >
+        <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Upload new JSON-configuration</h5>
@@ -170,11 +163,11 @@ export const modal = () => {
             </div>
             <div class="modal-body">
                 <label class="btn btn-lg btn-primary mb-0 mr-2">
-                Select JSON <input id="fileUpload" type="file" hidden accept="application/json" />
+                Select JSON <input id="modalFileUpload" type="file" hidden accept="application/json" />
                 </label>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary" data-dismiss="modal" id="uploadModal">Upload</button>
           </div>
         </div>
