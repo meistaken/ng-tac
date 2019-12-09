@@ -88,9 +88,8 @@ document.addEventListener('click', event => {
         pagecontroller(event.target.id);
     } if (event.target.matches('#uploadModal')) {
         if(document.querySelector('#modalFileUpload').files.length == 0) {
-            console.log('файл не выбран')
+            alert('файл не выбран')
         } if(document.querySelector('#modalFileUpload').files.length !==0) {
-            console.log(document.querySelector('#modalFileUpload').files[0])
            generatePage(document.querySelector('#modalFileUpload').files[0]); 
         }
     } 
@@ -99,6 +98,7 @@ document.addEventListener('click', event => {
 
 document.addEventListener('input', async(event) => {
     if (event.target.matches('#fileUpload')) {
+        console.log(event)
         generatePage(event);
     } if (event.target.matches('#modalFileUpload')) {
         handleModal(event)

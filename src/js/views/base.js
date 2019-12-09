@@ -21,12 +21,17 @@ export const clearContent = () => {
 
 
 export const handleUpload = async (event) => {
-    const file = event.target.files[0];
+    let file = ''
+    if (event.type == 'application/json'){
+         file = event
+    } if (event.type == 'input') {
+         file = event.target.files[0];
+    }
     try {
         const fileContents = await readUploadedFileAsText(file)
         return JSON.parse(fileContents)
     } catch (e) {
-        console.warn(e.message)
+        alert(e.message)
     }
 }
 
