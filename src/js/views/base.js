@@ -4,15 +4,16 @@ export const elements = {
     container: document.getElementById('container'),
     content: document.getElementById('content'),
     resultData: document.getElementById('resData'),
-    form: document.getElementById('check-rule'),
-    submitButton: document.getElementById('search'),
-    clearButton: document.getElementById('clear')
+    //form: document.getElementById('check-rule'),
+    //submitButton: document.getElementById('search'),
+    //clearButton: document.querySelector('clear')
 };
 
 // Clear content container
 export const clearContainer = () => {
     elements.container.innerHTML = '';
 }
+
 
 // Clear content
 export const clearContent = () => {
@@ -50,3 +51,4 @@ const readUploadedFileAsText = (inputFile) => {
         reader.readAsText(inputFile);
     });
 };
+

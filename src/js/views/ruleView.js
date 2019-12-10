@@ -7,6 +7,7 @@ export const handleFormSubmit = json => {
 
     clearButton.addEventListener('click', e => {
         const resultTemplate = document.getElementById('resultContainer')
+
         e.preventDefault();
         if (resultTemplate) {
             resultTemplate.parentNode.removeChild(resultTemplate);
@@ -25,21 +26,19 @@ export const handleFormSubmit = json => {
 
 
 const getResultArr = (requestObject, json) => {
-    const hash = [];
-    for (let prop in requestObject) {
-        hash[prop] = getObjects(json.rule, prop, requestObject[prop])
-    }
-    
-    const resultArrs = Object.values(hash)
+    const resultArrs = requestObject.map(item => { 
+        return(getObjects(json, item[0], item[1])) 
+    }, [])
+
     console.log('Arrays to compare:', resultArrs)
 
     let final = []
-        for (let i=0; i < resultArrs.length - 1 ; i++ ) {
-            let res = (resultArrs[i]).every(e => (resultArrs[i+1]).includes(e))
-            if(res){
-                final = resultArrs[i]
-            }
+    for (let i=0; i < resultArrs.length - 1 ; i++ ) {
+        let res = (resultArrs[i]).every(e => (resultArrs[i+1]).includes(e))
+        if(res){
+            final = resultArrs[i]
         }
+    }
     return final    
 }
 
@@ -74,7 +73,6 @@ const getObjects = (obj, key, val) => {
     }
     return objects;
 }        
-
 
 // Get data from form
 const formData = elements => Array.from(elements).reduce((data, element) => {
@@ -120,7 +118,7 @@ const createRequest = data => {
         
         } if (Object.entries(objFromForm.source).length === 0) { objFromForm.source['any'] = []}
     })
-    return objFromForm
+    return Object.entries(objFromForm)
 }
 
 
@@ -131,7 +129,7 @@ const renderResultcontainter = () => {
         resultTemplate.parentNode.removeChild(resultTemplate);
 
         const markup = `
-        <div id="resultContainer" class="col-lg-10 m-auto">
+        <div id="resultContainer" class="col-lg-6 m-auto">
             <h3 class="mt-3">Result</h3>
             <div id="resultData"></div>
         </div>
@@ -140,7 +138,7 @@ const renderResultcontainter = () => {
 
     } else {
         const markup = `
-        <div id="resultContainer" class="col-lg-10 m-auto">
+        <div id="resultContainer" class="col-lg-6 m-auto">
             <h3 class="mt-3">Result</h3>
             <div id="resultData"></div>
         </div>
@@ -159,14 +157,11 @@ const renderResults = (result) => {
     } else {
         result.forEach(element => {
             for (let [key, value] of Object.entries(element)) {
-                const markup = `
-                        <li class="list-group-item">${JSON.stringify(key)} <span class="font-weight-bold">${JSON.stringify(value)}</li>
-                `;
-                resultData.insertAdjacentHTML('beforeend', markup);
+                resultData.insertAdjacentHTML('beforeend', `
+                <li class="list-group-item">${JSON.stringify(key)} <span class="font-weight-bold">${JSON.stringify(value)}</li>
+                `)
             }
-
-            const markup = `</br>`;
-            resultData.insertAdjacentHTML('beforeend', markup);
+            resultData.insertAdjacentHTML('beforeend', `</br>`)
         });
     }
 }

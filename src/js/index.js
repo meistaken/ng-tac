@@ -9,10 +9,10 @@ import * as ruleView from './views/ruleView';
 /** TODO List
  * Upload XML config + convert to JSON
  * Search in incomplete request in destination or source fields
- * Upload data validation
+ * Upload data validation - isConfig
+ * Print search result with alias
  * Fix search alg
  * Fix double click to open-modal 
- * Fix modal upload logic
  */
 
 
@@ -84,22 +84,25 @@ const pagecontroller = item => {
 document.addEventListener('click', event => {
     if (event.target.matches('#demoJson')) {
         generatePage();
+
     } if (event.target.matches('.nl')) {
         pagecontroller(event.target.id);
+
     } if (event.target.matches('#uploadModal')) {
         if(document.querySelector('#modalFileUpload').files.length == 0) {
             alert('файл не выбран')
         } if(document.querySelector('#modalFileUpload').files.length !==0) {
            generatePage(document.querySelector('#modalFileUpload').files[0]); 
         }
+
     } 
 }, false);
 
 
-document.addEventListener('input', async(event) => {
+document.addEventListener('input', event => {
     if (event.target.matches('#fileUpload')) {
-        console.log(event)
         generatePage(event);
+
     } if (event.target.matches('#modalFileUpload')) {
         handleModal(event)
     } 

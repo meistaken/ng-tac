@@ -32,11 +32,10 @@ export const nav = () => {
 
                 <li class="navbar-item h5 mr-4 my-auto" ><a href="#" class="nav-link nl" id="rule">rule checker</a></li>
         
-                <button class="btn btn-lg btn-primary nl" data-toggle="modal" data-target="#uploadModal" id="new">new config</button>
+                <button class="btn btn-lg btn-primary mr-4 nl" data-toggle="modal" data-target="#uploadModal" id="new">new config</button>
             </ul>
         </div>    
     </nav>
-    <div id="content" class="container col-lg-6 m-auto" ></div>
  `;
     elements.container.insertAdjacentHTML('beforeend', markup);
 }
@@ -48,7 +47,6 @@ export const contentContainer = () => {
  `;
     elements.container.insertAdjacentHTML('beforeend', markup);
 }
-
 
 // Render information page layout
 export const infoTemplate = () => {
@@ -68,10 +66,10 @@ export const infoTemplate = () => {
    `;
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
+
 // Rule search form
 export const renderRule = () => {
     const markup = `
-    <div class="col-md-10 m-auto">
         <h2>Rule Checker</h2>
         <form id="check-rule">
             <div class="form-row">
@@ -144,7 +142,6 @@ export const renderRule = () => {
                 <button id="search" class="btn btn-primary ml-2 mt-2 col-md-4" type="submit" >Check rule</button>
             </div>        
         </form>
-    </div>
     `;
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
