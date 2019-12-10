@@ -7,12 +7,23 @@ import * as ruleView from './views/ruleView';
 
 
 /** TODO List
+ * ___
+ * improve upload
  * Upload XML config + convert to JSON
- * Search in incomplete request in destination or source fields
  * Upload data validation - isConfig
+ * 
+ * ———
+ * improve search 
+ * Search with incomplete request in destination or source fields
  * Print search result with alias
- * Fix search alg
- * Fix double click to open-modal 
+ * 
+ * ———
+ * Try to fix bootstrap bug 
+ * Open modal double click requarement
+ * 
+ * ___
+ * improve readability
+ * Add comments
  */
 
 

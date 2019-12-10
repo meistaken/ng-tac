@@ -1,6 +1,37 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 crossorigin="anonymous"></script>
 
+
+
+            /* подгонка под ответ
+            let clearReq = {}
+            Object.keys(requestObject).map(elem => {
+                //console.log(requestObject[elem])
+                if(JSON.stringify(requestObject[elem]) == JSON.stringify({"any":[]})) {
+                    return clearReq[elem]  = curObj[elem]
+                }   
+                if(JSON.stringify(requestObject[elem]) == JSON.stringify('')) {
+                    return clearReq[elem]  = curObj[elem] 
+                }   
+                else {
+                    return clearReq[elem] = requestObject[elem]
+                }
+                //console.log(requestObject[elem])
+            })
+            console.log(clearReq)
+ 
+            matchValues = Object.keys(requestObject).some(elem => {
+                requestObject[elem] == curObj[elem]
+                //console.log('Сравниваем', requestObject[elem], 'с', curObj[elem])
+            })
+            */
+
+            //return matchValues    
+            //console.log(JSON.stringify(requestObject[elem]), JSON.stringify(object[elem]))
+            //console.log(matchValues)  
+            //console.log(checkKeys, matchValues)
+            //console.log(object)
+
 //  console.log(data)
 //  console.log(Object.entries(data)) 
 //  console.log(Object.fromEntries(Object.entries(data)))
@@ -80,6 +111,18 @@ const rqst = data => Object.entries(data).map(([k, v]) => {
 })
 */
 
+/*     
+    "Work" solution 
+    console.log('Arrays to compare:', resultArrs)
+    let final = []
+    for (let i=0; i < resultArrs.length - 1 ; i++ ) {
+        let res = (resultArrs[i]).every(e => (resultArrs[i+1]).includes(e))
+        if(res){
+            final = resultArrs[i]
+        }
+    } 
+    return final  
+*/
 
 
 

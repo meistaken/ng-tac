@@ -12,6 +12,7 @@ export const handleFormSubmit = json => {
         if (resultTemplate) {
             resultTemplate.parentNode.removeChild(resultTemplate);
         }
+        form.reset();
     })
 
     submitButton.addEventListener('click', e => {
@@ -19,27 +20,45 @@ export const handleFormSubmit = json => {
         const requestObject = createRequest(rawData);
 
         e.preventDefault();
-        renderResultcontainter();
+        renderResultcontainter(getResultArr(requestObject, json));
         renderResults(getResultArr(requestObject, json));
     })
 }
 
 
 const getResultArr = (requestObject, json) => {
-    const resultArrs = requestObject.map(item => { 
+    const resultArrs = Object.entries(requestObject).map(item => { 
         return(getObjects(json, item[0], item[1])) 
     }, [])
 
-    console.log('Arrays to compare:', resultArrs)
+    let rslt = []
+    resultArrs.map(oneArray => {
+        oneArray.map(curObj => {
+            let checkKeys = Object.keys(requestObject).every(elem => {return curObj[elem]})
+            let clearReq = {}
+            Object.keys(requestObject).map(elem => {
+                if(JSON.stringify(requestObject[elem]) == JSON.stringify({"any":[]}) || JSON.stringify(requestObject[elem]) == JSON.stringify('') ) {
+                    return 
+                }   
+                else {
+                    return clearReq[elem] = requestObject[elem]
+                }
+            })
 
-    let final = []
-    for (let i=0; i < resultArrs.length - 1 ; i++ ) {
-        let res = (resultArrs[i]).every(e => (resultArrs[i+1]).includes(e))
-        if(res){
-            final = resultArrs[i]
-        }
-    }
-    return final    
+            //console.log(clearReq)
+            let matchValues = Object.keys(clearReq).every(elem => {
+                return JSON.stringify(clearReq[elem]) == JSON.stringify(curObj[elem])
+                //console.log('Сравниваем', clearReq[elem], 'с', curObj[elem])
+            }, [])
+
+            //console.log(checkKeys, matchValues) 
+            if (checkKeys && matchValues) {
+                rslt.push(curObj)
+            }
+        }) 
+    }, [])
+    console.log(rslt)
+return (rslt)  
 }
 
 
@@ -118,11 +137,11 @@ const createRequest = data => {
         
         } if (Object.entries(objFromForm.source).length === 0) { objFromForm.source['any'] = []}
     })
-    return Object.entries(objFromForm)
+    return objFromForm
 }
 
 
-const renderResultcontainter = () => {
+const renderResultcontainter = (result) => {
     const resultTemplate = document.getElementById('resultContainer')
 
     if (resultTemplate) {
@@ -130,7 +149,7 @@ const renderResultcontainter = () => {
 
         const markup = `
         <div id="resultContainer" class="col-lg-6 m-auto">
-            <h3 class="mt-3">Result</h3>
+            <h3 class="mt-3">Results <span class="badge badge-secondary">${Object.keys(result).length}</span></h3>
             <div id="resultData"></div>
         </div>
         `;
