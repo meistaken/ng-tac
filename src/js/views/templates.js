@@ -7,7 +7,7 @@ export const welcomeScreen = () => {
             <h1 class="display-3">ngtac helper</h1>
             <p class="mt-2">Check information about your configuration and seach rules by parameters</p>
             <label class="btn btn-lg btn-primary mb-0 mr-2">
-                Upload JSON <input id="fileUpload" type="file" hidden accept="application/json" />
+                Upload JSON <input id="fileUpload" type="file" hidden accept="application/json, application/xml" />
             </label>
             <button id="demoJson" type="button" class="btn btn-lg  btn-outline-primary" >Demo file</button>
         </div>
@@ -160,7 +160,7 @@ export const modal = () => {
             </div>
             <div class="modal-body">
                 <label class="btn btn-lg btn-primary mb-0 mr-2">
-                Select JSON <input id="modalFileUpload" type="file" hidden accept="application/json" />
+                Select JSON <input id="modalFileUpload" type="file" hidden accept="application/json, application/xml" />
                 </label>
             </div>
             <div class="modal-footer">

@@ -32,8 +32,8 @@ const getResultArr = (requestObject, json) => {
     }, [])
 
     let rslt = []
-    resultArrs.map(oneArray => {
-        oneArray.map(curObj => {
+    resultArrs.map(arr => {
+        arr.map(curObj => {
             let checkKeys = Object.keys(requestObject).every(elem => {return curObj[elem]})
             let clearReq = {}
             Object.keys(requestObject).map(elem => {

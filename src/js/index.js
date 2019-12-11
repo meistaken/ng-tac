@@ -5,28 +5,6 @@ import testData from './data/config.json';
 import * as infoView from './views/infoView';
 import * as ruleView from './views/ruleView';
 
-
-/** TODO List
- * ___
- * improve upload
- * Upload XML config + convert to JSON
- * Upload data validation - isConfig
- * 
- * ———
- * improve search 
- * Search with incomplete request in destination or source fields
- * Print search result with alias
- * 
- * ———
- * Try to fix bootstrap bug 
- * Open modal double click requarement
- * 
- * ___
- * improve readability
- * Add comments
- */
-
-
 const state = {};
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,6 +15,7 @@ const generatePage = event => {
     if (event) {
         base.handleUpload(event)
             .then(response => {
+                console.log(response)
                 state.info = response;
 
                 // Prepare UI
@@ -105,7 +84,6 @@ document.addEventListener('click', event => {
         } if(document.querySelector('#modalFileUpload').files.length !==0) {
            generatePage(document.querySelector('#modalFileUpload').files[0]); 
         }
-
     } 
 }, false);
 
@@ -128,4 +106,3 @@ const handleModal = (event) => {
         alert(e.message)
     }
 }
-
