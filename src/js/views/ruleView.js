@@ -45,13 +45,10 @@ const getResultArr = (requestObject, json) => {
                 }
             })
 
-            //console.log(clearReq)
             let matchValues = Object.keys(clearReq).every(elem => {
                 return JSON.stringify(clearReq[elem]) == JSON.stringify(curObj[elem])
-                //console.log('Сравниваем', clearReq[elem], 'с', curObj[elem])
             }, [])
-
-            //console.log(checkKeys, matchValues) 
+ 
             if (checkKeys && matchValues) {
                 rslt.push(curObj)
             }
@@ -100,7 +97,6 @@ const formData = elements => Array.from(elements).reduce((data, element) => {
     }
     return data;
 }, {})
-
 
 const isValidElement = element => {
     return element.id && element.value;

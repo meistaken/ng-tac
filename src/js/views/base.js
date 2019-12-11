@@ -23,25 +23,26 @@ export const clearContent = () => {
 export const handleUpload = async (event) => {
     let file = ''
 
-    if (event.type == 'application/json'){
-        file = event
-
-    } if (event.type == 'input'){
+    if (event.type == 'input'){
         file = event.target.files[0]
+
+    } else if (event.type == 'application/json' || event.type == 'text/xml') {
+        file = event
     }
+
     try {
         const fileContents = await readFileAsText(file)
 
         if(fileContents.includes('<?xml version="1.0"?>')) {
-            let xml2js = require('xml2js')
-            xml2js.parseStringPromise(fileContents).then(result => {
-                console.log(result.pfsense)
-                return (result.pfsense)
-            })
-        } else {
+            let convert = require('xml-js');
+            let data = convert.xml2json(fileContents,  {compact: true, spaces: 4})
+            let res = JSON.parse(data)
+            return (res.pfsense)
+        } 
+
+        else {
             return JSON.parse(fileContents)
         }
-        
     } catch (e) {
         alert(e.message)
     }

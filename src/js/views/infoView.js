@@ -12,7 +12,7 @@ const renderGeneral = info => {
     for (let [key, value] of Object.entries(info.system)) {
         if (keys.indexOf(key) != -1) {
             const markup = `
-                    <li class="list-group-item">${key} <span class="font-weight-bold">${value}</li>
+                    <li class="list-group-item">${key} <span class="font-weight-bold">${JSON.stringify(value)}</li>
             `;
         document.getElementById('gen-info').insertAdjacentHTML('beforeend', markup);
         }
@@ -35,7 +35,7 @@ const renderInterface = info => {
                 document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
             } else if (v) {
                 const markup = `
-                    <li class="list-group-item">${k} <span class="font-weight-bold">${v}</span></li>
+                    <li class="list-group-item">${k} <span class="font-weight-bold">${JSON.stringify(v)}</span></li>
                     `
                 document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
             }

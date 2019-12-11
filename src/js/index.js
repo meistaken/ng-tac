@@ -15,7 +15,6 @@ const generatePage = event => {
     if (event) {
         base.handleUpload(event)
             .then(response => {
-                console.log(response)
                 state.info = response;
 
                 // Prepare UI
@@ -29,7 +28,7 @@ const generatePage = event => {
                 template.infoTemplate();
 
                 // Render information content 
-                infoView.renderInfo(response);
+                infoView.renderInfo(state.info);
             })
     } else {
         // Get testData from JSON
@@ -46,7 +45,7 @@ const generatePage = event => {
         template.infoTemplate();
 
         // Render information content 
-        infoView.renderInfo(testData);
+        infoView.renderInfo(state.info);
     }
 }
 
@@ -78,31 +77,32 @@ document.addEventListener('click', event => {
     } if (event.target.matches('.nl')) {
         pagecontroller(event.target.id);
 
-    } if (event.target.matches('#uploadModal')) {
+    } if (event.target.matches('#uploadDataModal')) {
         if(document.querySelector('#modalFileUpload').files.length == 0) {
             alert('файл не выбран')
-        } if(document.querySelector('#modalFileUpload').files.length !==0) {
+        } if (document.querySelector('#modalFileUpload').files.length !==0) {
            generatePage(document.querySelector('#modalFileUpload').files[0]); 
         }
+        document.querySelector('#uplStatus').innerHTML = ''
     } 
 }, false);
 
 
 document.addEventListener('input', event => {
     if (event.target.matches('#fileUpload')) {
-        generatePage(event);
+        generatePage(event)
 
     } if (event.target.matches('#modalFileUpload')) {
         handleModal(event)
-    } 
+    }
 }, false);
 
 
 const handleModal = (event) => {
     const file = event.target.files[0];
     try {
-        document.querySelector('.modal-body').insertAdjacentHTML('beforeend', `<span>Файл ${file.name} успешно загружен</span>`);
-    } catch (e) {
-        alert(e.message)
+        document.querySelector('#uploadForm').insertAdjacentHTML('beforeend', `<span id="uplStatus">Файл ${file.name} успешно загружен</span>`);
+    } catch (error) {
+        document.querySelector('#uploadForm').insertAdjacentHTML('beforeend', `<span id="uplStatus">Файл ${error} успешно загружен</span>`);
     }
 }
