@@ -15,6 +15,7 @@ const generatePage = event => {
     if (event) {
         base.handleUpload(event)
             .then(response => {
+                console.log(response)
                 state.info = response;
 
                 // Prepare UI

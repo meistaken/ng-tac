@@ -4,13 +4,13 @@ export const welcomeScreen = () => {
     const markup = `
     <div id="uploadJson" class="col-lg-6 mx-auto mt-5">
         <div class="col text-center">
-            <h1 class="display-3">ngtac helper</h1>
+            <h1 class="display-3">pfsense config reader</h1>
             <p class="my-4">Check information about your configuration and seach rules by parameters</p>
             <label class="btn btn-lg btn-primary mb-0 mr-2">
                 Upload file<input id="fileUpload" type="file" hidden accept="application/json, application/xml" />
             </label>
             <button id="demoJson" type="button" class="btn btn-lg  btn-outline-primary" >Demo file</button>
-            <p class="my-2 text-info"><small>You can upload config in XML or JSON format</small></p>
+            <p class="my-2 text-info"><small>Upload pfsense config in XML format</small></p>
         </div>
     </div>   
      `;
@@ -44,7 +44,7 @@ export const nav = () => {
 // Render layout
 export const contentContainer = () => {
     const markup = `
-    <div id="content" class="container col-lg-6 m-auto" ></div>
+    <div id="content" class="container col-lg-4 m-auto" ></div>
  `;
     elements.container.insertAdjacentHTML('beforeend', markup);
 }
@@ -52,18 +52,9 @@ export const contentContainer = () => {
 // Render information page layout
 export const infoTemplate = () => {
     const markup = `
-    <h2>Information</h2>
-    <div class="row">
-        <div class="col-md">
-            <h6 class="card-subtitle text-muted mt-2 mb-1">General info</h6>
-            <ul class="list-group mb-3" id="gen-info"></ul>
-        </div>
-
-        <div class="col-md">    
-            <h6 class="card-subtitle text-muted mt-2 mb-1">Interface info</h6>
-            <ul class="list-group mb-3" id="inf-info"></ul>                
-        </div> 
-    </div>
+    <h2 class="mb-3">Information</h2>
+        <ul class="list-group" id="gen-info"></ul>
+        <ul class="list-group" id="inf-info"></ul>                
    `;
     document.getElementById('content').insertAdjacentHTML('beforeend', markup);
 }
@@ -71,7 +62,7 @@ export const infoTemplate = () => {
 // Rule search form
 export const renderRule = () => {
     const markup = `
-        <h2>Rule Checker</h2>
+        <h2 class="mb-3">Rule Checker</h2>
         <form id="check-rule">
             <div class="form-row">
                 <div class="col">

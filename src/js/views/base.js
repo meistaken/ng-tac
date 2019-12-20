@@ -26,23 +26,39 @@ export const handleUpload = async (event) => {
     if (event.type == 'input'){
         file = event.target.files[0]
 
-    } else if (event.type == 'application/json' || event.type == 'text/xml') {
+    } else if (event.type == 'text/xml') {
         file = event
     }
 
     try {
         const fileContents = await readFileAsText(file)
+            let parser = require('fast-xml-parser');
+            let he = require('he');
+             
+            let options = {
+                attributeNamePrefix : "@_",
+                attrNodeName: "attr", //default is 'false'
+                textNodeName : "#text",
+                ignoreAttributes : true,
+                ignoreNameSpace : false,
+                allowBooleanAttributes : false,
+                parseNodeValue : true,
+                parseAttributeValue : false,
+                trimValues: true,
+                cdataTagName: "__cdata", //default is 'false'
+                cdataPositionChar: "\\c",
+                localeRange: "", //To support non english character in tag/attribute values.
+                parseTrueNumberOnly: false,
+                arrayMode: false, //"strict"
+                attrValueProcessor: (val, attrName) => he.decode(val, {isAttributeValue: true}),//default is a=>a
+                tagValueProcessor : (val, tagName) => he.decode(val), //default is a=>a
+                stopNodes: ["parse-me-as-string"]
+            };
+            let tObj = parser.getTraversalObj(fileContents,options);
+            var data = parser.convertToJson(tObj,options)
 
-        if(fileContents.includes('<?xml version="1.0"?>')) {
-            let convert = require('xml-js');
-            let data = convert.xml2json(fileContents,  {compact: true, spaces: 4})
-            let res = JSON.parse(data)
-            return (res.pfsense)
-        } 
-
-        else {
-            return JSON.parse(fileContents)
-        }
+            return data.pfsense         
+        
     } catch (e) {
         alert(e.message)
     }

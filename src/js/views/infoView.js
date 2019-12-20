@@ -23,22 +23,23 @@ const renderGeneral = info => {
 const renderInterface = info => {
     for (let [key, value] of Object.entries(info.interfaces)) {
         const markup = `
-            <h5 class="mt-2">${key.toUpperCase()}</h5>
+            <h5 class="mt-4">${key.toUpperCase()}</h5>
         `;
         document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
 
         for (let [k, v] of Object.entries(value)) {
-            if (v == false) {
-                const markup = `
-                    <li class="list-group-item">${k}</li>
-                `
-                document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
-            } else if (v) {
+            if (v) {
                 const markup = `
                     <li class="list-group-item">${k} <span class="font-weight-bold">${JSON.stringify(v)}</span></li>
                     `
                 document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
             }
+            else {
+                const markup = `
+                    <li class="list-group-item">${k}</li>
+                `
+                document.getElementById('inf-info').insertAdjacentHTML('beforeend', markup);
+            } 
         }
     }
 }

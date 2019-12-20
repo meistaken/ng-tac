@@ -1,32 +1,34 @@
 
-TODO Li
+# TODO List
 
-_____
-BLOCK
-- Broken search in imported xml
-- Ugly stringify
+## Block
+1. Ugly stringify
 
-_______
-IMPROVE
-- Uploaded data validation - isConfig
-- Search with incomplete request in destination or source fields
+
+## Improve
+1. Uploaded data validation - isConfig
+2. Add search with incomplete request in destination or source fields
 Print search result with alias
-- Double page-generator request
-
-________________________
-TRY TO FIX BOOTSTRAP BUG 
-- Requirement double-click the button in nav
-
-___________________
-IMPROVE READABILITY
-- Add comments
-
-___________
-SMALL FIXES
-0
+3. Fix double page-generator request
+4. Add code comments
 
 
-DONE
-...
-Upload XML config + convert to JSON
+## Optional fix bootstrap bug
+1. Requirement double-click the button in nav
+
+  
+___  
+## Updates
+20.12.2019 v1.0.0
+Delete JSON-upload module
+Change info markup to single column
+Add custom styles to reduce list-group height
+Clean package.json from unused plugins
+Change XML-converter to fastxml
+
+11.12.2019  
 Delete "Файл ${file.name} успешно загружен" after upload
+
+
+10.12.2019  
+Upload XML config + convert to JSON
