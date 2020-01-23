@@ -1,5 +1,5 @@
 
-TODO Li
+TODO
 
 _____
 BLOCK
@@ -17,16 +17,3 @@ ________________________
 TRY TO FIX BOOTSTRAP BUG 
 - Requirement double-click the button in nav
 
-___________________
-IMPROVE READABILITY
-- Add comments
-
-___________
-SMALL FIXES
-0
-
-
-DONE
-...
-Upload XML config + convert to JSON
-Delete "Файл ${file.name} успешно загружен" after upload
