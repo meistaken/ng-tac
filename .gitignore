@@ -1,5 +1,6 @@
 
 # Created by https://www.gitignore.io/api/sass,macos,linux,python,pycharm,visualstudiocode
+node_modules
 
 ### Linux ###
 *~
@@ -253,3 +254,4 @@ pip-selfcheck.json
 
 
 # End of https://www.gitignore.io/api/sass,macos,linux,python,pycharm,visualstudiocode
+node_modules
